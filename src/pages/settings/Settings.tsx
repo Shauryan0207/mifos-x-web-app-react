@@ -5,30 +5,27 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from '@/components/ui/accordion'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
 
 const Settings = () => {
   return (
     <div className="min-h-screen px-4 py-6 bg-gray-50 dark:bg-zinc-900">
       <AppBreadCrumbs
-        items={[
-          { label: "Home", href: "/home" },
-          { label: "Settings" },
-        ]}
+        items={[{ label: 'Home', href: '/home' }, { label: 'Settings' }]}
       />
 
       <div className="bg-white p-8 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 shadow-sm">
@@ -44,7 +41,9 @@ const Settings = () => {
               <div>
                 <label className="text-sm font-medium">Default Language</label>
                 <Select>
-                  <SelectTrigger><SelectValue placeholder="Select language" /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="en">English</SelectItem>
                   </SelectContent>
@@ -52,9 +51,13 @@ const Settings = () => {
               </div>
 
               <div>
-                <label className="text-sm font-medium">Default Date Format</label>
+                <label className="text-sm font-medium">
+                  Default Date Format
+                </label>
                 <Select>
-                  <SelectTrigger><SelectValue placeholder="Select format" /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select format" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="dd MMMM yyyy">dd MMMM yyyy</SelectItem>
                   </SelectContent>
@@ -62,9 +65,13 @@ const Settings = () => {
               </div>
 
               <div>
-                <label className="text-sm font-medium">Decimals to Display</label>
+                <label className="text-sm font-medium">
+                  Decimals to Display
+                </label>
                 <Select>
-                  <SelectTrigger><SelectValue placeholder="Select decimals" /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select decimals" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="2">2</SelectItem>
                   </SelectContent>
@@ -107,7 +114,9 @@ const Settings = () => {
               <div>
                 <label className="text-sm font-medium">Default Font</label>
                 <Select>
-                  <SelectTrigger><SelectValue placeholder="Choose font" /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose font" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="inter">Inter</SelectItem>
                   </SelectContent>
@@ -137,7 +146,7 @@ const Settings = () => {
         </Accordion>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

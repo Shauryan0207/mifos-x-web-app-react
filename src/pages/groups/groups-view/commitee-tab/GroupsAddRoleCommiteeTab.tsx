@@ -5,40 +5,40 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { Button } from "@/components/ui/button";
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
-import AppSelect from "@/components/custom/select/AppSelect";
+import { Button } from '@/components/ui/button'
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
+import AppSelect from '@/components/custom/select/AppSelect'
 
 const GroupsAddRoleCommitteeTab = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [form, setForm] = useState({
-    clientId: "",
-    roleId: "",
-  });
+    clientId: '',
+    roleId: '',
+  })
 
   // Basic form validation
-  const canSubmit = form.clientId !== "" && form.roleId !== "";
+  const canSubmit = form.clientId !== '' && form.roleId !== ''
 
   // Handle submit
   const handleConfirm = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!canSubmit) return;
-    navigate(-1); 
-  };
+    e.preventDefault()
+    if (!canSubmit) return
+    navigate(-1)
+  }
 
   return (
     <div className="px-6 py-8 max-w-7xl mx-auto">
       {/* Breadcrumbs */}
       <AppBreadCrumbs
         items={[
-          { label: "Home", href: "/home" },
-          { label: "Groups", href: "/groups" },
-          { label: "Group" },
-          { label: "Add Role", current: true },
+          { label: 'Home', href: '/home' },
+          { label: 'Groups', href: '/groups' },
+          { label: 'Group' },
+          { label: 'Add Role', current: true },
         ]}
       />
 
@@ -52,8 +52,8 @@ const GroupsAddRoleCommitteeTab = () => {
             selectLabel="Client*"
             selectPlaceholder="Select client"
             selectValue={form.clientId}
-            selectOnChange={(v) => setForm((s) => ({ ...s, clientId: v }))}
-            selectOptions={[]} 
+            selectOnChange={v => setForm(s => ({ ...s, clientId: v }))}
+            selectOptions={[]}
             selectClassname="w-full space-y-2"
           />
 
@@ -62,8 +62,8 @@ const GroupsAddRoleCommitteeTab = () => {
             selectLabel="Role*"
             selectPlaceholder="Select role"
             selectValue={form.roleId}
-            selectOnChange={(v) => setForm((s) => ({ ...s, roleId: v }))}
-            selectOptions={[]} 
+            selectOnChange={v => setForm(s => ({ ...s, roleId: v }))}
+            selectOptions={[]}
             selectClassname="w-full space-y-2"
           />
 
@@ -88,7 +88,7 @@ const GroupsAddRoleCommitteeTab = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GroupsAddRoleCommitteeTab;
+export default GroupsAddRoleCommitteeTab

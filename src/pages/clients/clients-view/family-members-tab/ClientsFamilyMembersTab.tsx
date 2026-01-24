@@ -5,41 +5,46 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { CalendarIcon } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Checkbox } from '@/components/ui/checkbox'
+import { CalendarIcon } from 'lucide-react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const ClientsFamilyMembersAddTab = ({
   clientId,
   onCancel,
   onSubmitted,
 }: {
-  clientId?: string;
-  onCancel?: () => void;
-  onSubmitted?: () => void;
+  clientId?: string
+  onCancel?: () => void
+  onSubmitted?: () => void
 }) => {
   // form state for all input fields
   const [form, setForm] = useState({
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    qualification: "",
-    age: "",
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    qualification: '',
+    age: '',
     isDependent: false,
-    relationship: "",
-    gender: "",
-    profession: "",
-    maritalStatus: "",
-    dob: "",
-  });
+    relationship: '',
+    gender: '',
+    profession: '',
+    maritalStatus: '',
+    dob: '',
+  })
 
   // update helper for form fields
-  const set = (k: keyof typeof form, v: any) =>
-    setForm((f) => ({ ...f, [k]: v }));
+  const set = (k: keyof typeof form, v: any) => setForm(f => ({ ...f, [k]: v }))
 
   // basic validation check for required fields
   const isValid =
@@ -48,14 +53,14 @@ const ClientsFamilyMembersAddTab = ({
     form.age &&
     form.relationship &&
     form.gender &&
-    form.dob;
+    form.dob
 
   // handle submit
   const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isValid) return;
-    onSubmitted?.();
-  };
+    e.preventDefault()
+    if (!isValid) return
+    onSubmitted?.()
+  }
 
   return (
     <form onSubmit={submit} className="p-0">
@@ -66,7 +71,7 @@ const ClientsFamilyMembersAddTab = ({
           <Label>First Name*</Label>
           <Input
             value={form.firstName}
-            onChange={(e) => set("firstName", e.target.value)}
+            onChange={e => set('firstName', e.target.value)}
             className="rounded-none border-0 border-b border-zinc-300 focus-visible:ring-0"
           />
         </div>
@@ -74,7 +79,7 @@ const ClientsFamilyMembersAddTab = ({
           <Label>Middle Name</Label>
           <Input
             value={form.middleName}
-            onChange={(e) => set("middleName", e.target.value)}
+            onChange={e => set('middleName', e.target.value)}
             className="rounded-none border-0 border-b border-zinc-300 focus-visible:ring-0"
           />
         </div>
@@ -82,7 +87,7 @@ const ClientsFamilyMembersAddTab = ({
           <Label>Last Name*</Label>
           <Input
             value={form.lastName}
-            onChange={(e) => set("lastName", e.target.value)}
+            onChange={e => set('lastName', e.target.value)}
             className="rounded-none border-0 border-b border-zinc-300 focus-visible:ring-0"
           />
         </div>
@@ -90,7 +95,7 @@ const ClientsFamilyMembersAddTab = ({
           <Label>Qualification</Label>
           <Input
             value={form.qualification}
-            onChange={(e) => set("qualification", e.target.value)}
+            onChange={e => set('qualification', e.target.value)}
             className="rounded-none border-0 border-b border-zinc-300 focus-visible:ring-0"
           />
         </div>
@@ -102,7 +107,7 @@ const ClientsFamilyMembersAddTab = ({
             type="number"
             min={0}
             value={form.age}
-            onChange={(e) => set("age", e.target.value)}
+            onChange={e => set('age', e.target.value)}
             className="rounded-none border-0 border-b border-zinc-300 focus-visible:ring-0"
           />
         </div>
@@ -110,7 +115,7 @@ const ClientsFamilyMembersAddTab = ({
           <Label className="m-0">Is Dependent?</Label>
           <Checkbox
             checked={form.isDependent}
-            onCheckedChange={(v) => set("isDependent", !!v)}
+            onCheckedChange={v => set('isDependent', !!v)}
           />
         </div>
 
@@ -119,7 +124,7 @@ const ClientsFamilyMembersAddTab = ({
           <Label>Relationship*</Label>
           <Select
             value={form.relationship}
-            onValueChange={(v) => set("relationship", v)}
+            onValueChange={v => set('relationship', v)}
           >
             <SelectTrigger className="rounded-none border-0 border-b border-zinc-300">
               <SelectValue placeholder="Select" />
@@ -135,10 +140,7 @@ const ClientsFamilyMembersAddTab = ({
         </div>
         <div className="space-y-1">
           <Label>Gender*</Label>
-          <Select
-            value={form.gender}
-            onValueChange={(v) => set("gender", v)}
-          >
+          <Select value={form.gender} onValueChange={v => set('gender', v)}>
             <SelectTrigger className="rounded-none border-0 border-b border-zinc-300">
               <SelectValue placeholder="Select" />
             </SelectTrigger>
@@ -155,7 +157,7 @@ const ClientsFamilyMembersAddTab = ({
           <Label>Profession</Label>
           <Select
             value={form.profession}
-            onValueChange={(v) => set("profession", v)}
+            onValueChange={v => set('profession', v)}
           >
             <SelectTrigger className="rounded-none border-0 border-b border-zinc-300">
               <SelectValue placeholder="Select" />
@@ -173,7 +175,7 @@ const ClientsFamilyMembersAddTab = ({
           <Label>Marital Status</Label>
           <Select
             value={form.maritalStatus}
-            onValueChange={(v) => set("maritalStatus", v)}
+            onValueChange={v => set('maritalStatus', v)}
           >
             <SelectTrigger className="rounded-none border-0 border-b border-zinc-300">
               <SelectValue placeholder="Select" />
@@ -194,7 +196,7 @@ const ClientsFamilyMembersAddTab = ({
             <Input
               type="date"
               value={form.dob}
-              onChange={(e) => set("dob", e.target.value)}
+              onChange={e => set('dob', e.target.value)}
               className="w-full rounded-none border-0 border-b border-zinc-300 pr-10 focus-visible:ring-0"
             />
             <CalendarIcon className="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500" />
@@ -216,7 +218,7 @@ const ClientsFamilyMembersAddTab = ({
         </Button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default ClientsFamilyMembersAddTab;
+export default ClientsFamilyMembersAddTab

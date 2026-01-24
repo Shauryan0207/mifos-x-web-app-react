@@ -5,18 +5,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import AppSelect from "@/components/custom/select/AppSelect";
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import AppSelect from '@/components/custom/select/AppSelect'
 
 const SavingsProductCurrencyStep = ({
   formData,
   setFormData,
   currencyOptions,
 }: {
-  formData: any;
-  setFormData: (val: any) => void;
-  currencyOptions: { id: string; name: string; decimalPlaces: number }[];
+  formData: any
+  setFormData: (val: any) => void
+  currencyOptions: { id: string; name: string; decimalPlaces: number }[]
 }) => {
   return (
     <div className="flex flex-col gap-6">
@@ -25,14 +25,14 @@ const SavingsProductCurrencyStep = ({
           <AppSelect
             selectLabel="Currency"
             selectValue={formData.currency?.id}
-            selectOnChange={(code) => {
-              const selected = currencyOptions.find((c) => c.id === code);
+            selectOnChange={code => {
+              const selected = currencyOptions.find(c => c.id === code)
               if (selected) {
                 setFormData((prev: any) => ({
                   ...prev,
                   currency: selected,
                   decimalPlaces: selected.decimalPlaces,
-                }));
+                }))
               }
             }}
             selectPlaceholder="Select Currency"
@@ -46,7 +46,7 @@ const SavingsProductCurrencyStep = ({
           <Input
             type="number"
             value={formData.decimalPlaces}
-            onChange={(e) =>
+            onChange={e =>
               setFormData((prev: any) => ({
                 ...prev,
                 decimalPlaces: +e.target.value,
@@ -62,7 +62,7 @@ const SavingsProductCurrencyStep = ({
           type="number"
           placeholder="Currency in multiples of"
           value={formData.currencyMultiples}
-          onChange={(e) =>
+          onChange={e =>
             setFormData((prev: any) => ({
               ...prev,
               currencyMultiples: e.target.value,
@@ -71,7 +71,7 @@ const SavingsProductCurrencyStep = ({
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SavingsProductCurrencyStep;
+export default SavingsProductCurrencyStep

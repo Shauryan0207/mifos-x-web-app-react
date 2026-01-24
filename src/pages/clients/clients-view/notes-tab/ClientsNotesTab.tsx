@@ -5,15 +5,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 const ClientNotesTab = () => {
-  const [notes, setNotes] = useState<string[]>([]); // mocked notes list
-  const [newNote, setNewNote] = useState("");
-
-
+  const [notes, setNotes] = useState<string[]>([]) // mocked notes list
+  const [newNote, setNewNote] = useState('')
 
   return (
     <div className="text-black dark:text-white px-6 py-4 space-y-4">
@@ -23,9 +21,8 @@ const ClientNotesTab = () => {
       <div className="flex items-start gap-4">
         <Input
           placeholder="Write a note ...."
-          
           value={newNote}
-          onChange={(e) => setNewNote(e.target.value)}
+          onChange={e => setNewNote(e.target.value)}
         />
         <Button
           variant="outline"
@@ -48,7 +45,7 @@ const ClientNotesTab = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ClientNotesTab;
+export default ClientNotesTab

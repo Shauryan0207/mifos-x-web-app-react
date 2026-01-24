@@ -5,47 +5,47 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import AppSelect from "@/components/custom/select/AppSelect";
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import AppSelect from '@/components/custom/select/AppSelect'
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
 
-import { getConfiguration } from "@/lib/fineract-openapi";
+import { getConfiguration } from '@/lib/fineract-openapi'
 import {
   CentersApi,
   OfficesApi,
   StaffApi,
   type GetOfficesResponse,
   type StaffData,
-} from "@/fineract-api";
+} from '@/fineract-api'
 
 // API instances
-const centersApi = new CentersApi(getConfiguration());
-const officesApi = new OfficesApi(getConfiguration());
-const staffApi = new StaffApi(getConfiguration());
+const centersApi = new CentersApi(getConfiguration())
+const officesApi = new OfficesApi(getConfiguration())
+const staffApi = new StaffApi(getConfiguration())
 
 const CreateCenters = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   // Dropdown data
-  const [offices, setOffices] = useState<GetOfficesResponse[]>([]);
-  const [staff, setStaff] = useState<StaffData[]>([]);
+  const [offices, setOffices] = useState<GetOfficesResponse[]>([])
+  const [staff, setStaff] = useState<StaffData[]>([])
 
   // Form state
   const [formData, setFormData] = useState({
-    name: "",
-    officeId: "",
-    staffId: "",
+    name: '',
+    officeId: '',
+    staffId: '',
     active: false,
-    externalId: "",
-    submittedOnDate: "",
-    activationDate: "",
-  });
+    externalId: '',
+    submittedOnDate: '',
+    activationDate: '',
+  })
 
   // Fetch offices + staff on mount
   useEffect(() => {
@@ -54,43 +54,43 @@ const CreateCenters = () => {
         const [officesRes, staffRes] = await Promise.all([
           officesApi.retrieveOffices(),
           staffApi.retrieveAll16(),
-        ]);
-        const officeItems = Array.from(officesRes.data ?? []);
-        const staffItems = Array.from(staffRes.data ?? []);
-        setOffices(officeItems);
-        setStaff(staffItems);
+        ])
+        const officeItems = Array.from(officesRes.data ?? [])
+        const staffItems = Array.from(staffRes.data ?? [])
+        setOffices(officeItems)
+        setStaff(staffItems)
       } catch (err) {
-        console.error("Failed to fetch offices/staff", err);
+        console.error('Failed to fetch offices/staff', err)
       }
-    };
+    }
 
-    fetchInitialData();
-  }, []);
+    fetchInitialData()
+  }, [])
 
   // Submit handler
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       await centersApi.create7({
         ...formData,
         officeId: Number(formData.officeId),
         active: formData.active,
-      });
-      navigate("/centers");
+      })
+      navigate('/centers')
     } catch (err) {
-      console.error("Failed to create center", err);
-      alert("Failed to create center");
+      console.error('Failed to create center', err)
+      alert('Failed to create center')
     }
-  };
+  }
 
   return (
     <div className="min-h-screen px-6 py-10 max-w-7xl mx-auto text-[15px]">
       {/* Breadcrumbs */}
       <AppBreadCrumbs
         items={[
-          { label: "Home", href: "/home" },
-          { label: "Centers", href: "/centers" },
-          { label: "Create", current: true },
+          { label: 'Home', href: '/home' },
+          { label: 'Centers', href: '/centers' },
+          { label: 'Create', current: true },
         ]}
       />
 
@@ -104,8 +104,8 @@ const CreateCenters = () => {
             <Label>Name*</Label>
             <Input
               value={formData.name}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, name: e.target.value }))
+              onChange={e =>
+                setFormData(prev => ({ ...prev, name: e.target.value }))
               }
               required
             />
@@ -117,12 +117,12 @@ const CreateCenters = () => {
             selectValue={formData.officeId}
             selectPlaceholder="Select Office"
             selectClassname="w-full space-y-2"
-            selectOnChange={(value) =>
-              setFormData((prev) => ({ ...prev, officeId: value }))
+            selectOnChange={value =>
+              setFormData(prev => ({ ...prev, officeId: value }))
             }
-            selectOptions={offices.map((o) => ({
-              id: o.id?.toString() ?? "",
-              name: o.name ?? "",
+            selectOptions={offices.map(o => ({
+              id: o.id?.toString() ?? '',
+              name: o.name ?? '',
             }))}
           />
 
@@ -132,12 +132,12 @@ const CreateCenters = () => {
             selectValue={formData.staffId}
             selectPlaceholder="Select Staff"
             selectClassname="w-full space-y-2"
-            selectOnChange={(value) =>
-              setFormData((prev) => ({ ...prev, staffId: value }))
+            selectOnChange={value =>
+              setFormData(prev => ({ ...prev, staffId: value }))
             }
-            selectOptions={staff.map((s) => ({
-              id: s.id?.toString() ?? "",
-              name: s.displayName ?? "",
+            selectOptions={staff.map(s => ({
+              id: s.id?.toString() ?? '',
+              name: s.displayName ?? '',
             }))}
           />
 
@@ -145,8 +145,8 @@ const CreateCenters = () => {
           <div className="flex items-center space-x-3">
             <Checkbox
               checked={formData.active}
-              onCheckedChange={(val) =>
-                setFormData((prev) => ({ ...prev, active: Boolean(val) }))
+              onCheckedChange={val =>
+                setFormData(prev => ({ ...prev, active: Boolean(val) }))
               }
             />
             <Label className="text-md">Active</Label>
@@ -159,8 +159,8 @@ const CreateCenters = () => {
               <Input
                 type="date"
                 value={formData.activationDate}
-                onChange={(e) =>
-                  setFormData((prev) => ({
+                onChange={e =>
+                  setFormData(prev => ({
                     ...prev,
                     activationDate: e.target.value,
                   }))
@@ -174,8 +174,8 @@ const CreateCenters = () => {
             <Label>External Id</Label>
             <Input
               value={formData.externalId}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, externalId: e.target.value }))
+              onChange={e =>
+                setFormData(prev => ({ ...prev, externalId: e.target.value }))
               }
             />
           </div>
@@ -186,8 +186,8 @@ const CreateCenters = () => {
             <Input
               type="date"
               value={formData.submittedOnDate}
-              onChange={(e) =>
-                setFormData((prev) => ({
+              onChange={e =>
+                setFormData(prev => ({
                   ...prev,
                   submittedOnDate: e.target.value,
                 }))
@@ -201,7 +201,7 @@ const CreateCenters = () => {
             <Button
               type="button"
               variant="outline"
-              onClick={() => navigate("/centers")}
+              onClick={() => navigate('/centers')}
             >
               Cancel
             </Button>
@@ -215,7 +215,7 @@ const CreateCenters = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CreateCenters;
+export default CreateCenters

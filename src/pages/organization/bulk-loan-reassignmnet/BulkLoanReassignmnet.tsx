@@ -5,75 +5,75 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import AppSelect from "@/components/custom/select/AppSelect";
-import { Checkbox } from "@/components/ui/checkbox";
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import AppSelect from '@/components/custom/select/AppSelect'
+import { Checkbox } from '@/components/ui/checkbox'
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
 
-import { OfficesApi, StaffApi, type GetOfficesResponse } from "@/fineract-api";
-import { getConfiguration } from "@/lib/fineract-openapi";
+import { OfficesApi, StaffApi, type GetOfficesResponse } from '@/fineract-api'
+import { getConfiguration } from '@/lib/fineract-openapi'
 
-const officesApi = new OfficesApi(getConfiguration());
-const staffApi = new StaffApi(getConfiguration());
+const officesApi = new OfficesApi(getConfiguration())
+const staffApi = new StaffApi(getConfiguration())
 
 const BulkLoanReassignment = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [offices, setOffices] = useState<GetOfficesResponse[]>([]);
-  const [fromLoanOfficers, setFromLoanOfficers] = useState<any[]>([]);
-  const [toLoanOfficers, setToLoanOfficers] = useState<any[]>([]);
-  const [officerTemplate, setOfficerTemplate] = useState<any>();
+  const [offices, setOffices] = useState<GetOfficesResponse[]>([])
+  const [fromLoanOfficers, setFromLoanOfficers] = useState<any[]>([])
+  const [toLoanOfficers, setToLoanOfficers] = useState<any[]>([])
+  const [officerTemplate, setOfficerTemplate] = useState<any>()
 
   // form state
   const [formData, setFormData] = useState({
-    officeId: "",
-    assignmentDate: "",
-    fromLoanOfficerId: "",
-    toLoanOfficerId: "",
+    officeId: '',
+    assignmentDate: '',
+    fromLoanOfficerId: '',
+    toLoanOfficerId: '',
     selectedLoans: [] as number[],
-  });
+  })
 
-  // fetch offices 
+  // fetch offices
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       try {
-        const res = await officesApi.retrieveOffices();
-        setOffices(res.data || []);
+        const res = await officesApi.retrieveOffices()
+        setOffices(res.data || [])
       } catch (err) {
-        console.error("Failed to fetch offices", err);
+        console.error('Failed to fetch offices', err)
       }
-    })();
-  }, []);
+    })()
+  }, [])
 
   // handle form field updates
   const handleChange = (field: string, value: any) =>
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData(prev => ({ ...prev, [field]: value }))
 
   // toggle loan selection (clients/groups)
   const handleLoanToggle = (loanId: number, checked: boolean) =>
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       selectedLoans: checked
         ? [...prev.selectedLoans, loanId]
-        : prev.selectedLoans.filter((id) => id !== loanId),
-    }));
+        : prev.selectedLoans.filter(id => id !== loanId),
+    }))
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
   return (
     <div className="min-h-screen px-6 py-10 max-w-7xl mx-auto text-[15px]">
       <AppBreadCrumbs
         items={[
-          { label: "Home", href: "/home" },
-          { label: "Organization", href: "/organization" },
-          { label: "Bulk Loan Reassignment", current: true },
+          { label: 'Home', href: '/home' },
+          { label: 'Organization', href: '/organization' },
+          { label: 'Bulk Loan Reassignment', current: true },
         ]}
       />
 
@@ -87,11 +87,11 @@ const BulkLoanReassignment = () => {
               selectLabel="Office*"
               selectPlaceholder="Select Office"
               selectValue={formData.officeId}
-              selectOnChange={(val) => handleChange("officeId", val)}
+              selectOnChange={val => handleChange('officeId', val)}
               selectClassname="w-full space-y-2"
-              selectOptions={offices.map((o) => ({
-                id: o.id?.toString() || "",
-                name: o.name || "",
+              selectOptions={offices.map(o => ({
+                id: o.id?.toString() || '',
+                name: o.name || '',
               }))}
             />
           </div>
@@ -102,7 +102,7 @@ const BulkLoanReassignment = () => {
             <Input
               type="date"
               value={formData.assignmentDate}
-              onChange={(e) => handleChange("assignmentDate", e.target.value)}
+              onChange={e => handleChange('assignmentDate', e.target.value)}
               required
             />
           </div>
@@ -113,11 +113,11 @@ const BulkLoanReassignment = () => {
               selectLabel="From loan officer*"
               selectPlaceholder="Select loan officer"
               selectValue={formData.fromLoanOfficerId}
-              selectOnChange={(val) => handleChange("fromLoanOfficerId", val)}
+              selectOnChange={val => handleChange('fromLoanOfficerId', val)}
               selectClassname="w-full space-y-2"
-              selectOptions={fromLoanOfficers.map((o) => ({
-                id: o.id?.toString() || "",
-                name: o.displayName || "",
+              selectOptions={fromLoanOfficers.map(o => ({
+                id: o.id?.toString() || '',
+                name: o.displayName || '',
               }))}
             />
           </div>
@@ -128,11 +128,11 @@ const BulkLoanReassignment = () => {
               selectLabel="To loan officer*"
               selectPlaceholder="Select loan officer"
               selectValue={formData.toLoanOfficerId}
-              selectOnChange={(val) => handleChange("toLoanOfficerId", val)}
+              selectOnChange={val => handleChange('toLoanOfficerId', val)}
               selectClassname="w-full space-y-2"
-              selectOptions={toLoanOfficers.map((o) => ({
-                id: o.id?.toString() || "",
-                name: o.displayName || "",
+              selectOptions={toLoanOfficers.map(o => ({
+                id: o.id?.toString() || '',
+                name: o.displayName || '',
               }))}
             />
           </div>
@@ -147,7 +147,9 @@ const BulkLoanReassignment = () => {
                   {officerTemplate.accountSummaryCollection.clients?.map(
                     (client: any) => (
                       <div key={client.id}>
-                        <div className="font-semibold">{client.displayName}</div>
+                        <div className="font-semibold">
+                          {client.displayName}
+                        </div>
                         <div className="mt-1 space-y-1 pl-2">
                           {client.loans.map((loan: any) => (
                             <label
@@ -155,8 +157,10 @@ const BulkLoanReassignment = () => {
                               className="flex items-center gap-2 text-sm"
                             >
                               <Checkbox
-                                checked={formData.selectedLoans.includes(loan.id)}
-                                onCheckedChange={(c) =>
+                                checked={formData.selectedLoans.includes(
+                                  loan.id
+                                )}
+                                onCheckedChange={c =>
                                   handleLoanToggle(loan.id, !!c)
                                 }
                               />
@@ -206,7 +210,7 @@ const BulkLoanReassignment = () => {
             <Button
               type="button"
               variant="outline"
-              onClick={() => navigate("/organization")}
+              onClick={() => navigate('/organization')}
             >
               Cancel
             </Button>
@@ -225,7 +229,7 @@ const BulkLoanReassignment = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BulkLoanReassignment;
+export default BulkLoanReassignment

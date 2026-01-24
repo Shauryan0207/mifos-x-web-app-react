@@ -5,10 +5,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import mifosLogo from '@/assets/images/image-removebg-preview-transparent.png';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Gauge } from 'lucide-react';
+import mifosLogo from '@/assets/images/image-removebg-preview-transparent.png'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Gauge } from 'lucide-react'
 
 const Home = () => {
   return (
@@ -31,14 +31,12 @@ const Home = () => {
         />
       </div>
 
-      <Button
-        className="flex items-center gap-2 mt-6 px-4 sm:px-6 py-2 bg-[#76C47A] hover:bg-[#22B24C] text-white rounded-lg shadow transition cursor-pointer text-sm sm:text-base"
-      >
+      <Button className="flex items-center gap-2 mt-6 px-4 sm:px-6 py-2 bg-[#76C47A] hover:bg-[#22B24C] text-white rounded-lg shadow transition cursor-pointer text-sm sm:text-base">
         <Gauge className="w-4 h-4 sm:w-5 sm:h-5" />
         Dashboard
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

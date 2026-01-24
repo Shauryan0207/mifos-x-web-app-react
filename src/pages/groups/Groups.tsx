@@ -5,11 +5,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import {
   Table,
   TableBody,
@@ -18,38 +18,38 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select'
 
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
-import { GroupsApi, type GetGroupsPageItems } from "@/fineract-api";
-import { getConfiguration } from "@/lib/fineract-openapi";
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
+import { GroupsApi, type GetGroupsPageItems } from '@/fineract-api'
+import { getConfiguration } from '@/lib/fineract-openapi'
 
-import { Plus } from "lucide-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Plus } from 'lucide-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import { Checkbox } from '@/components/ui/checkbox'
 
-const groupsApi = new GroupsApi(getConfiguration());
+const groupsApi = new GroupsApi(getConfiguration())
 
 const Groups = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   // State for groups data
-  const [groups, setGroups] = useState<GetGroupsPageItems[]>([]);
+  const [groups, setGroups] = useState<GetGroupsPageItems[]>([])
   // Search filter state
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('')
   // Pagination state
-  const [page, setPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [page, setPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
   // Checkbox toggle (show pending vs only active)
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false)
 
   // Fetch groups on mount
   useEffect(() => {
@@ -61,52 +61,56 @@ const Groups = () => {
           undefined, // externalId
           undefined, // name
           undefined, // underHierarchy
-          true,      // paged
-          0,         // offset
-          100,       // limit
-          "",        // orderBy
-          ""         // sortOrder
-        );
-        const items = Array.from(response.data?.pageItems ?? []);
-        setGroups(items);
+          true, // paged
+          0, // offset
+          100, // limit
+          '', // orderBy
+          '' // sortOrder
+        )
+        const items = Array.from(response.data?.pageItems ?? [])
+        setGroups(items)
       } catch (err) {
-        console.error("Failed to fetch groups", err);
+        console.error('Failed to fetch groups', err)
       }
-    };
+    }
 
-    fetchGroups();
-  }, []);
+    fetchGroups()
+  }, [])
 
   // Filtering logic: match search term + status filter
-  const filtered = groups.filter((group) => {
-    const matchesSearch =
-      (group.name?.toLowerCase() ?? "").includes(searchTerm.toLowerCase());
-      // Optionally also check externalId, but commented out for now
+  const filtered = groups.filter(group => {
+    const matchesSearch = (group.name?.toLowerCase() ?? '').includes(
+      searchTerm.toLowerCase()
+    )
+    // Optionally also check externalId, but commented out for now
 
-    const status = group.status?.id ?? "";
+    const status = group.status?.id ?? ''
     const showBasedOnStatus = checked
       ? status === 300 || status === 100 // include pending
-      : status === 300;                  // only active
+      : status === 300 // only active
 
-    return matchesSearch && showBasedOnStatus;
-  });
+    return matchesSearch && showBasedOnStatus
+  })
 
   // Pagination logic
-  const totalPages = Math.ceil(filtered.length / itemsPerPage);
-  const paginated = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+  const totalPages = Math.ceil(filtered.length / itemsPerPage)
+  const paginated = filtered.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  )
 
   const handleItemsPerPageChange = (value: string) => {
-    setItemsPerPage(parseInt(value));
-    setPage(1);
-  };
+    setItemsPerPage(parseInt(value))
+    setPage(1)
+  }
 
   return (
     <div className="min-h-screen px-6 py-10 max-w-7xl mx-auto text-[15px]">
       {/* Breadcrumbs */}
       <AppBreadCrumbs
         items={[
-          { label: "Home", href: "/home" },
-          { label: "Groups", href: "/groups" },
+          { label: 'Home', href: '/home' },
+          { label: 'Groups', href: '/groups' },
         ]}
       />
 
@@ -126,16 +130,19 @@ const Groups = () => {
         <Input
           placeholder="Search by Name or External ID..."
           value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setPage(1);
+          onChange={e => {
+            setSearchTerm(e.target.value)
+            setPage(1)
           }}
           className="max-w-sm h-11 text-base"
         />
 
         {/* Items per page + pagination */}
         <div className="flex items-center gap-2">
-          <Select value={itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>
+          <Select
+            value={itemsPerPage.toString()}
+            onValueChange={handleItemsPerPageChange}
+          >
             <SelectTrigger className="w-[140px] h-11 text-base">
               <SelectValue placeholder="Items per page" />
             </SelectTrigger>
@@ -147,8 +154,22 @@ const Groups = () => {
             </SelectContent>
           </Select>
 
-          <Button variant="outline" size="sm" disabled={page === 1} onClick={() => setPage(page - 1)}>Prev</Button>
-          <Button variant="outline" size="sm" disabled={page === totalPages} onClick={() => setPage(page + 1)}>Next</Button>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page === 1}
+            onClick={() => setPage(page - 1)}
+          >
+            Prev
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page === totalPages}
+            onClick={() => setPage(page + 1)}
+          >
+            Next
+          </Button>
         </div>
       </div>
 
@@ -157,7 +178,7 @@ const Groups = () => {
         <Checkbox
           id="pending-groups"
           checked={checked}
-          onCheckedChange={(val) => setChecked(!!val)}
+          onCheckedChange={val => setChecked(!!val)}
         />
         <label htmlFor="pending-groups" className="text-base dark:text-white">
           Show Pending Groups
@@ -169,7 +190,8 @@ const Groups = () => {
         <Table>
           {/* Caption */}
           <TableCaption className="text-sm text-gray-500 dark:text-gray-400 pt-6 pb-2">
-            Showing {paginated.length} of {filtered.length} items • Page {page} of {totalPages}
+            Showing {paginated.length} of {filtered.length} items • Page {page}{' '}
+            of {totalPages}
           </TableCaption>
 
           {/* Table Header */}
@@ -185,21 +207,33 @@ const Groups = () => {
 
           {/* Table Body */}
           <TableBody>
-            {paginated.map((group) => (
+            {paginated.map(group => (
               <TableRow
                 key={group.id}
                 onClick={() => navigate(`/groups/${group.id}/general`)}
                 className="cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors text-base"
               >
-                <TableCell className="px-6 py-4 font-medium">{group.name}</TableCell>
-                <TableCell className="px-6 py-4">{"Missing in OpenAPI"}</TableCell>
-                <TableCell className="px-6 py-4">{"Missing in OpenAPI"}</TableCell>
+                <TableCell className="px-6 py-4 font-medium">
+                  {group.name}
+                </TableCell>
+                <TableCell className="px-6 py-4">
+                  {'Missing in OpenAPI'}
+                </TableCell>
+                <TableCell className="px-6 py-4">
+                  {'Missing in OpenAPI'}
+                </TableCell>
                 <TableCell className="px-6 py-4">
                   {group.status?.id === 300 && (
-                    <FontAwesomeIcon icon={faCircle} className="text-green-500 w-4 h-4" />
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      className="text-green-500 w-4 h-4"
+                    />
                   )}
                   {group.status?.id === 100 && (
-                    <FontAwesomeIcon icon={faCircle} className="text-yellow-500 w-4 h-4" />
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      className="text-yellow-500 w-4 h-4"
+                    />
                   )}
                 </TableCell>
                 <TableCell className="px-6 py-4">{group.officeName}</TableCell>
@@ -209,7 +243,7 @@ const Groups = () => {
         </Table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Groups;
+export default Groups

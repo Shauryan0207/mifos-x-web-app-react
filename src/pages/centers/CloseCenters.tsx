@@ -5,45 +5,45 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
-import { Button } from "@/components/ui/button";
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
+import { Button } from '@/components/ui/button'
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
 
-import { CentersApi, type GetCentersCenterIdResponse } from "@/fineract-api";
-import { getConfiguration } from "@/lib/fineract-openapi";
-import { Label } from "@/components/ui/label";          
-import { Input } from "@/components/ui/input";
+import { CentersApi, type GetCentersCenterIdResponse } from '@/fineract-api'
+import { getConfiguration } from '@/lib/fineract-openapi'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
 
-const centersApi = new CentersApi(getConfiguration());
+const centersApi = new CentersApi(getConfiguration())
 
 const CloseCenters = () => {
-  const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate()
+  const { id } = useParams<{ id: string }>()
 
-  const [center, setCenter] = useState<GetCentersCenterIdResponse>();
-  const [staffId, setStaffId] = useState<string>("");    
+  const [center, setCenter] = useState<GetCentersCenterIdResponse>()
+  const [staffId, setStaffId] = useState<string>('')
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       try {
-        const res = await centersApi.retrieveOne14(Number(id));
-        setCenter(res.data);
+        const res = await centersApi.retrieveOne14(Number(id))
+        setCenter(res.data)
       } catch (err) {
-        console.log("Can't fetch center", err);
+        console.log("Can't fetch center", err)
       }
-    })();
-  }, [id]);
+    })()
+  }, [id])
 
   return (
     <div className="min-h-screen px-6 py-10 bg-gray-50 dark:bg-zinc-900">
       <AppBreadCrumbs
         items={[
-          { label: "Home", href: "/home" },
-          { label: "Centers", href: "/centers" },               
-          { label: center?.name ?? "Center", href: `/centers/${id}` }, 
-          { label: "Edit", current: true },
+          { label: 'Home', href: '/home' },
+          { label: 'Centers', href: '/centers' },
+          { label: center?.name ?? 'Center', href: `/centers/${id}` },
+          { label: 'Edit', current: true },
         ]}
       />
 
@@ -57,7 +57,7 @@ const CloseCenters = () => {
               <Input
                 type="date"
                 id="center-name"
-                defaultValue={center?.name ?? ""}
+                defaultValue={center?.name ?? ''}
                 placeholder="Enter name"
                 className="w-full"
               />
@@ -83,7 +83,7 @@ const CloseCenters = () => {
               type="button"
               variant="outline"
               className="cursor-pointer"
-              onClick={() => navigate(`/centers/${id}/general`)}  
+              onClick={() => navigate(`/centers/${id}/general`)}
             >
               Cancel
             </Button>
@@ -91,7 +91,7 @@ const CloseCenters = () => {
             <Button
               className="bg-[#1074b9] hover:bg-[#1074c9] text-white cursor-pointer"
               // no submit logic per your request
-              onClick={() => console.log("Selected staff:", staffId)}
+              onClick={() => console.log('Selected staff:', staffId)}
             >
               Confirm
             </Button>
@@ -99,7 +99,7 @@ const CloseCenters = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CloseCenters;
+export default CloseCenters

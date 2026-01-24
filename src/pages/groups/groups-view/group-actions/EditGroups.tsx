@@ -5,120 +5,130 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
-import AppSelect from "@/components/custom/select/AppSelect";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
+import AppSelect from '@/components/custom/select/AppSelect'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
 
-import { GroupsApi, type GetGroupsGroupIdResponse } from "@/fineract-api";
-import { getConfiguration } from "@/lib/fineract-openapi";
+import { GroupsApi, type GetGroupsGroupIdResponse } from '@/fineract-api'
+import { getConfiguration } from '@/lib/fineract-openapi'
 
-const groupsApi = new GroupsApi(getConfiguration());
+const groupsApi = new GroupsApi(getConfiguration())
 
 function dateArrayToInputValue(arr?: number[] | null): string {
-  if (!arr || arr.length < 3) return "";
-  const [y, m, d] = arr;
-  return `${y}-${String(m ?? 1).padStart(2, "0")}-${String(d ?? 1,).padStart(2,"0")}`;
+  if (!arr || arr.length < 3) return ''
+  const [y, m, d] = arr
+  return `${y}-${String(m ?? 1).padStart(2, '0')}-${String(d ?? 1).padStart(2, '0')}`
 }
 
 function inputToFineractDate(iso?: string): string | undefined {
-  if (!iso) return undefined;
-  const [y, m, d] = iso.split("-").map((n) => parseInt(n, 10));
-  if (!y || !m || !d) return undefined;
+  if (!iso) return undefined
+  const [y, m, d] = iso.split('-').map(n => parseInt(n, 10))
+  if (!y || !m || !d) return undefined
   const months = [
-    "January","February","March","April","May","June",
-    "July","August","September","October","November","December",
-  ];
-  return `${String(d).padStart(2, "0")} ${months[m - 1]} ${y}`;
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+  return `${String(d).padStart(2, '0')} ${months[m - 1]} ${y}`
 }
 
 const EditGroups = () => {
-  const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate()
+  const { id } = useParams<{ id: string }>()
 
   // Local state for group + form fields
-  const [group, setGroup] = useState<GetGroupsGroupIdResponse>();
-  const [name, setName] = useState("");
-  const [staffId, setStaffId] = useState<string>("");
-  const [submittedOn, setSubmittedOn] = useState<string>("");
-  const [activationOn, setActivationOn] = useState<string>("");
-  const [externalId, setExternalId] = useState<string>("");
-  const [saving, setSaving] = useState(false);
+  const [group, setGroup] = useState<GetGroupsGroupIdResponse>()
+  const [name, setName] = useState('')
+  const [staffId, setStaffId] = useState<string>('')
+  const [submittedOn, setSubmittedOn] = useState<string>('')
+  const [activationOn, setActivationOn] = useState<string>('')
+  const [externalId, setExternalId] = useState<string>('')
+  const [saving, setSaving] = useState(false)
 
   // Fetch group details on load
   useEffect(() => {
-    (async () => {
-      if (!id) return;
+    ;(async () => {
+      if (!id) return
       try {
-        const res = await groupsApi.retrieveOne15(Number(id));
-        setGroup(res.data);
+        const res = await groupsApi.retrieveOne15(Number(id))
+        setGroup(res.data)
 
-        setName(res.data?.name ?? "");
+        setName(res.data?.name ?? '')
         if ((res.data as any)?.staffId) {
-          setStaffId(String((res.data as any).staffId));
+          setStaffId(String((res.data as any).staffId))
         }
         setSubmittedOn(
           dateArrayToInputValue((res.data as any)?.timeline?.submittedOnDate)
-        );
+        )
         setActivationOn(
           dateArrayToInputValue(
             (res.data as any)?.timeline?.activationDate ??
               (res.data as any)?.timeline?.activatedOnDate
           )
-        );
+        )
         // externalId left blank on purpose, user must fill if needed
       } catch (err) {
-        console.error("Can't fetch group", err);
+        console.error("Can't fetch group", err)
       }
-    })();
-  }, [id]);
+    })()
+  }, [id])
 
   // Build staff dropdown options from API response
   const staffOptions =
     ((group as any)?.staffOptions ?? []).map((s: any) => ({
       id: s.id,
       name: s.displayName ?? s.name ?? `Staff ${s.id}`,
-    })) || [];
+    })) || []
 
-  // Handle submit 
+  // Handle submit
   const onSubmit = async () => {
-    if (!id) return;
-    setSaving(true);
+    if (!id) return
+    setSaving(true)
     try {
       const payload: any = {
         name: name.trim(),
-        locale: "en",
-        dateFormat: "dd MMMM yyyy",
-      };
+        locale: 'en',
+        dateFormat: 'dd MMMM yyyy',
+      }
 
-      if (staffId) payload.staffId = Number(staffId);
-      const sub = inputToFineractDate(submittedOn);
-      if (sub) payload.submittedOnDate = sub;
-      const act = inputToFineractDate(activationOn);
-      if (act) payload.activationDate = act;
-      if (externalId.trim()) payload.externalId = externalId.trim();
+      if (staffId) payload.staffId = Number(staffId)
+      const sub = inputToFineractDate(submittedOn)
+      if (sub) payload.submittedOnDate = sub
+      const act = inputToFineractDate(activationOn)
+      if (act) payload.activationDate = act
+      if (externalId.trim()) payload.externalId = externalId.trim()
 
-      navigate(`/groups/${id}/general`);
+      navigate(`/groups/${id}/general`)
     } catch (err) {
-      console.error("Failed to update group", err);
+      console.error('Failed to update group', err)
     } finally {
-      setSaving(false);
+      setSaving(false)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen px-6 py-10 bg-gray-50 dark:bg-zinc-900">
       {/* Breadcrumb navigation */}
       <AppBreadCrumbs
         items={[
-          { label: "Home", href: "/home" },
-          { label: "Groups", href: "/groups" },
-          { label: group?.name ?? "Group", href: `/groups/${id}/general` },
-          { label: "Edit", current: true },
+          { label: 'Home', href: '/home' },
+          { label: 'Groups', href: '/groups' },
+          { label: group?.name ?? 'Group', href: `/groups/${id}/general` },
+          { label: 'Edit', current: true },
         ]}
       />
 
@@ -133,7 +143,7 @@ const EditGroups = () => {
             <Input
               id="group-name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={e => setName(e.target.value)}
               placeholder="Enter group name"
               className="w-full"
             />
@@ -156,7 +166,7 @@ const EditGroups = () => {
                 value={
                   (group as any)?.staffName ??
                   (group as any)?.staff?.displayName ??
-                  "Unassigned"
+                  'Unassigned'
                 }
                 readOnly
                 className="w-full"
@@ -171,7 +181,7 @@ const EditGroups = () => {
               id="submitted-on"
               type="date"
               value={submittedOn}
-              onChange={(e) => setSubmittedOn(e.target.value)}
+              onChange={e => setSubmittedOn(e.target.value)}
               className="w-full"
             />
           </div>
@@ -183,7 +193,7 @@ const EditGroups = () => {
               id="activation-on"
               type="date"
               value={activationOn}
-              onChange={(e) => setActivationOn(e.target.value)}
+              onChange={e => setActivationOn(e.target.value)}
               className="w-full"
             />
           </div>
@@ -194,7 +204,7 @@ const EditGroups = () => {
             <Input
               id="external-id"
               value={externalId}
-              onChange={(e) => setExternalId(e.target.value)}
+              onChange={e => setExternalId(e.target.value)}
               placeholder="Enter external id"
               className="w-full"
             />
@@ -215,13 +225,13 @@ const EditGroups = () => {
               disabled={saving || !name.trim()}
               className="bg-[#1074b9] hover:bg-[#1074c9] text-white"
             >
-              {saving ? "Saving..." : "Submit"}
+              {saving ? 'Saving...' : 'Submit'}
             </Button>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EditGroups;
+export default EditGroups
