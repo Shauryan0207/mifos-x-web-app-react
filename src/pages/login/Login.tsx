@@ -144,7 +144,7 @@ const Login = () => {
               value={form.username}
               onChange={handleChange}
               type="text"
-              placeholder="Email"
+              placeholder="Username / Email"
               className="dark:bg-zinc-800 dark:text-white mb-4"
             />
 
