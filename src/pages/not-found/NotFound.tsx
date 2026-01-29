@@ -5,16 +5,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Button } from '@/components/ui/button'
+import { ArrowLeft } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const NotFound = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate(-1);
-  };
+    navigate(-1)
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#3498db] text-white">
@@ -28,7 +28,7 @@ const NotFound = () => {
         Back
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default NotFound;
+export default NotFound

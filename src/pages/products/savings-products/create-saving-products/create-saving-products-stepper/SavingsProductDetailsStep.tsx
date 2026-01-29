@@ -5,15 +5,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 const SavingsProductDetailsStep = ({
   formData,
   setFormData,
 }: {
-  formData: any;
-  setFormData: (val: any) => void;
+  formData: any
+  setFormData: (val: any) => void
 }) => {
   return (
     <div className="flex flex-col gap-6">
@@ -24,7 +24,7 @@ const SavingsProductDetailsStep = ({
           <Input
             id="productName"
             value={formData.name}
-            onChange={(e) =>
+            onChange={e =>
               setFormData((prev: any) => ({
                 ...prev,
                 name: e.target.value,
@@ -38,7 +38,7 @@ const SavingsProductDetailsStep = ({
           <Input
             id="shortName"
             value={formData.shortName}
-            onChange={(e) =>
+            onChange={e =>
               setFormData((prev: any) => ({
                 ...prev,
                 shortName: e.target.value,
@@ -54,7 +54,7 @@ const SavingsProductDetailsStep = ({
         <Input
           id="description"
           value={formData.description}
-          onChange={(e) =>
+          onChange={e =>
             setFormData((prev: any) => ({
               ...prev,
               description: e.target.value,
@@ -63,7 +63,7 @@ const SavingsProductDetailsStep = ({
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SavingsProductDetailsStep;
+export default SavingsProductDetailsStep

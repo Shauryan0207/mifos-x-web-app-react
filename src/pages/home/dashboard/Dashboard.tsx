@@ -5,23 +5,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
+import { Input } from '@/components/ui/input'
+import { Card, CardContent } from '@/components/ui/card'
 
-import { Label } from "@/components/ui/label";
-import ClientTrendsBar from "./client-trends-bar/ClientTrendsBar";
-import AmountDisbursedPie from "./amount-disbursed-pie/AmountDisbursedPie";
-import AmountCollectedPie from "./amount-collected-pie/AmountCollectedPie";
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
+import { Label } from '@/components/ui/label'
+import ClientTrendsBar from './client-trends-bar/ClientTrendsBar'
+import AmountDisbursedPie from './amount-disbursed-pie/AmountDisbursedPie'
+import AmountCollectedPie from './amount-collected-pie/AmountCollectedPie'
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
 
 const Dashboard = () => {
   return (
     <div className="min-h-screen px-6 py-10 max-w-7xl mx-auto text-[15px]">
-
       <AppBreadCrumbs
         items={[
-          { label: "Home", href: "/home" },
-          { label: "Dashboard", current: true }
+          { label: 'Home', href: '/home' },
+          { label: 'Dashboard', current: true },
         ]}
       />
 
@@ -51,7 +50,7 @@ const Dashboard = () => {
         </div>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

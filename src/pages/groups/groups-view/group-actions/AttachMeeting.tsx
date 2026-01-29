@@ -5,40 +5,42 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select'
 
 const AttachMeeting = () => {
-  const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate()
+  const { id } = useParams<{ id: string }>()
 
-  const [startDate, setStartDate] = useState<string>("");
-  const [repeats, setRepeats] = useState(false);
-  const [frequency, setFrequency] = useState<"DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY">("DAILY");
-  const [interval, setInterval] = useState<number>(1);
-  const [saving, setSaving] = useState(false);
+  const [startDate, setStartDate] = useState<string>('')
+  const [repeats, setRepeats] = useState(false)
+  const [frequency, setFrequency] = useState<
+    'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY'
+  >('DAILY')
+  const [interval, setInterval] = useState<number>(1)
+  const [saving, setSaving] = useState(false)
 
-  const canSubmit = Boolean(startDate) && !saving;
+  const canSubmit = Boolean(startDate) && !saving
 
   return (
     <div className="min-h-screen px-6 py-8">
       <AppBreadCrumbs
         items={[
-          { label: "Home", href: "/home" },
-          { label: "Groups", href: "/groups" },
-          { label: "Attach Meeting", current: true },
+          { label: 'Home', href: '/home' },
+          { label: 'Groups', href: '/groups' },
+          { label: 'Attach Meeting', current: true },
         ]}
       />
 
@@ -52,19 +54,21 @@ const AttachMeeting = () => {
             id="meeting-start"
             type="date"
             value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            onChange={e => setStartDate(e.target.value)}
             className="mt-2"
           />
         </div>
 
         {/* Repeats? */}
         <div className="mb-4 flex items-center gap-3">
-          <Label htmlFor="repeats" className="cursor-pointer">Repeats?</Label>
+          <Label htmlFor="repeats" className="cursor-pointer">
+            Repeats?
+          </Label>
           <input
             id="repeats"
             type="checkbox"
             checked={repeats}
-            onChange={(e) => setRepeats(e.target.checked)}
+            onChange={e => setRepeats(e.target.checked)}
             className="h-4 w-4"
           />
         </div>
@@ -76,8 +80,8 @@ const AttachMeeting = () => {
               <Label>Repetition Frequency</Label>
               <Select
                 value={frequency}
-                onValueChange={(val) =>
-                  setFrequency(val as "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY")
+                onValueChange={val =>
+                  setFrequency(val as 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY')
                 }
               >
                 <SelectTrigger className="mt-2">
@@ -96,19 +100,19 @@ const AttachMeeting = () => {
               <Label>Repetition Interval</Label>
               <Select
                 value={String(interval)}
-                onValueChange={(v) => setInterval(parseInt(v, 10))}
+                onValueChange={v => setInterval(parseInt(v, 10))}
               >
                 <SelectTrigger className="mt-2">
                   <SelectValue placeholder="Select interval" />
                 </SelectTrigger>
                 <SelectContent>
                   {Array.from({ length: 12 }).map((_, i) => {
-                    const val = i + 1;
+                    const val = i + 1
                     return (
                       <SelectItem key={val} value={String(val)}>
                         {val}
                       </SelectItem>
-                    );
+                    )
                   })}
                 </SelectContent>
               </Select>
@@ -132,12 +136,12 @@ const AttachMeeting = () => {
             // onClick={onSubmit}
             disabled={!canSubmit}
           >
-            {saving ? "Submitting..." : "Submit"}
+            {saving ? 'Submitting...' : 'Submit'}
           </Button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AttachMeeting;
+export default AttachMeeting

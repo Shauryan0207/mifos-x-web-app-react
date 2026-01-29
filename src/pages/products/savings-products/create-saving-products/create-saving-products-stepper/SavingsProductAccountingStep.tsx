@@ -5,21 +5,21 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
 const SavingsProductAccountingStep = ({
   formData,
   setFormData,
 }: {
-  formData: any;
-  setFormData: (val: any) => void;
+  formData: any
+  setFormData: (val: any) => void
 }) => {
   return (
     <div className="space-y-4">
       <RadioGroup
         value={formData.accountingRule}
-        onValueChange={(val) =>
+        onValueChange={val =>
           setFormData((prev: any) => ({
             ...prev,
             accountingRule: val,
@@ -41,7 +41,7 @@ const SavingsProductAccountingStep = ({
         </div>
       </RadioGroup>
     </div>
-  );
-};
+  )
+}
 
-export default SavingsProductAccountingStep;
+export default SavingsProductAccountingStep

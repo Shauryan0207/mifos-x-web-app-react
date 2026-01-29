@@ -5,17 +5,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Button } from "@/components/ui/button";
-import { AppBreadCrumbs } from "@/components/custom/breadcrumbs/AppBreadCrumbs";
+import { Button } from '@/components/ui/button'
+import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
 
 const Profile = () => {
   return (
     <div className="min-h-screen px-6 py-10 max-w-7xl mx-auto text-[15px]">
-
       <AppBreadCrumbs
         items={[
-          { label: "Home", href: "/home" },
-          { label: "Profile", current: true }
+          { label: 'Home', href: '/home' },
+          { label: 'Profile', current: true },
         ]}
       />
 
@@ -65,7 +64,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

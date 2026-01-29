@@ -5,47 +5,56 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 // import { useParams } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger,
-} from "@/components/ui/dialog";
-import { Plus } from "lucide-react";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Plus } from 'lucide-react'
 
 const ClientsAddressTab = () => {
-  // const { id } = useParams(); 
+  // const { id } = useParams();
 
   // modal open/close
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const [form, setForm] = useState({
-    addressType: "",
-    addressLine1: "",
-    addressLine2: "",
-    addressLine3: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: "",
-  });
+    addressType: '',
+    addressLine1: '',
+    addressLine2: '',
+    addressLine3: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: '',
+  })
 
   useEffect(() => {
-    setOpen(false);
-  }, []);
+    setOpen(false)
+  }, [])
 
   const onChange = (key: keyof typeof form) => (e: any) =>
-    setForm((f) => ({ ...f, [key]: e?.target ? e.target.value : e }));
+    setForm(f => ({ ...f, [key]: e?.target ? e.target.value : e }))
 
   const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setOpen(false);
-  };
+    e.preventDefault()
+    setOpen(false)
+  }
 
   return (
     <div className="bg-transparent">
@@ -75,7 +84,7 @@ const ClientsAddressTab = () => {
                 <Label>Address Type</Label>
                 <Select
                   value={form.addressType}
-                  onValueChange={(v) => setForm((f) => ({ ...f, addressType: v }))}
+                  onValueChange={v => setForm(f => ({ ...f, addressType: v }))}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select type" />
@@ -91,55 +100,68 @@ const ClientsAddressTab = () => {
               {/* lines 1–3 */}
               <div className="space-y-2">
                 <Label>Address Line 1</Label>
-                <Input value={form.addressLine1} onChange={onChange("addressLine1")} />
+                <Input
+                  value={form.addressLine1}
+                  onChange={onChange('addressLine1')}
+                />
               </div>
               <div className="space-y-2">
                 <Label>Address Line 2</Label>
-                <Input value={form.addressLine2} onChange={onChange("addressLine2")} />
+                <Input
+                  value={form.addressLine2}
+                  onChange={onChange('addressLine2')}
+                />
               </div>
               <div className="space-y-2">
                 <Label>Address Line 3</Label>
-                <Input value={form.addressLine3} onChange={onChange("addressLine3")} />
+                <Input
+                  value={form.addressLine3}
+                  onChange={onChange('addressLine3')}
+                />
               </div>
 
               {/* city */}
               <div className="space-y-2">
                 <Label>City</Label>
-                <Input value={form.city} onChange={onChange("city")} />
+                <Input value={form.city} onChange={onChange('city')} />
               </div>
 
               {/* state/province*/}
               <div className="space-y-2 w-full">
                 <Label>State / Province</Label>
-                <Select
-
-                >
+                <Select>
                   <SelectTrigger>
                     <SelectValue placeholder="State / Province" />
                   </SelectTrigger>
-                  <SelectContent className="w-full">
-                  </SelectContent>
+                  <SelectContent className="w-full"></SelectContent>
                 </Select>
               </div>
 
               {/* postal code */}
               <div className="space-y-2">
                 <Label>Postal Code</Label>
-                <Input value={form.city} onChange={onChange("city")} />
+                <Input value={form.city} onChange={onChange('city')} />
               </div>
 
               {/* country */}
               <div className="space-y-2">
                 <Label>Country</Label>
-                <Input value={form.city} onChange={onChange("city")} />
+                <Input value={form.city} onChange={onChange('city')} />
               </div>
 
               {/* actions */}
               <DialogFooter className="mt-2">
-                <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setOpen(false)}
+                >
                   Cancel
                 </Button>
-                <Button type="submit" className="bg-[#0e77b7] hover:bg-[#0662a3] text-white">
+                <Button
+                  type="submit"
+                  className="bg-[#0e77b7] hover:bg-[#0662a3] text-white"
+                >
                   Add
                 </Button>
               </DialogFooter>
@@ -148,7 +170,7 @@ const ClientsAddressTab = () => {
         </Dialog>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ClientsAddressTab;
+export default ClientsAddressTab

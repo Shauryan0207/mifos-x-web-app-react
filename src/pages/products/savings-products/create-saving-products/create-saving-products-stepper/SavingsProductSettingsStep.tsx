@@ -5,16 +5,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Checkbox } from '@/components/ui/checkbox'
 
 const SavingsProductSettingsStep = ({
   formData,
   setFormData,
 }: {
-  formData: any;
-  setFormData: (val: any) => void;
+  formData: any
+  setFormData: (val: any) => void
 }) => {
   return (
     <div className="flex flex-col gap-6">
@@ -26,7 +26,7 @@ const SavingsProductSettingsStep = ({
             type="number"
             placeholder="e.g., 500"
             value={formData.minOpeningBalance}
-            onChange={(e) =>
+            onChange={e =>
               setFormData((prev: any) => ({
                 ...prev,
                 minOpeningBalance: +e.target.value,
@@ -40,7 +40,7 @@ const SavingsProductSettingsStep = ({
             type="number"
             placeholder="e.g., 1000"
             value={formData.balanceRequiredForInterestCalculation}
-            onChange={(e) =>
+            onChange={e =>
               setFormData((prev: any) => ({
                 ...prev,
                 balanceRequiredForInterestCalculation: +e.target.value,
@@ -58,7 +58,7 @@ const SavingsProductSettingsStep = ({
             type="number"
             placeholder="e.g., 12 (months)"
             value={formData.lockinPeriodFrequency}
-            onChange={(e) =>
+            onChange={e =>
               setFormData((prev: any) => ({
                 ...prev,
                 lockinPeriodFrequency: +e.target.value,
@@ -72,7 +72,7 @@ const SavingsProductSettingsStep = ({
             type="number"
             placeholder="e.g., 200"
             value={formData.minBalance}
-            onChange={(e) =>
+            onChange={e =>
               setFormData((prev: any) => ({
                 ...prev,
                 minBalance: +e.target.value,
@@ -88,20 +88,22 @@ const SavingsProductSettingsStep = ({
           <Checkbox
             id="withdrawalFee"
             checked={formData.withdrawalFeeForTransfers}
-            onCheckedChange={(val) =>
+            onCheckedChange={val =>
               setFormData((prev: any) => ({
                 ...prev,
                 withdrawalFeeForTransfers: val as boolean,
               }))
             }
           />
-          <Label htmlFor="withdrawalFee">Apply Withdrawal Fee for Transfers</Label>
+          <Label htmlFor="withdrawalFee">
+            Apply Withdrawal Fee for Transfers
+          </Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
             id="enforceMinBalance"
             checked={formData.enforceMinRequiredBalance}
-            onCheckedChange={(val) =>
+            onCheckedChange={val =>
               setFormData((prev: any) => ({
                 ...prev,
                 enforceMinRequiredBalance: val as boolean,
@@ -114,7 +116,7 @@ const SavingsProductSettingsStep = ({
           <Checkbox
             id="withholdTax"
             checked={formData.withHoldTax}
-            onCheckedChange={(val) =>
+            onCheckedChange={val =>
               setFormData((prev: any) => ({
                 ...prev,
                 withHoldTax: val as boolean,
@@ -132,7 +134,7 @@ const SavingsProductSettingsStep = ({
           <Checkbox
             id="overdraftAllowed"
             checked={formData.allowOverdraft}
-            onCheckedChange={(val) =>
+            onCheckedChange={val =>
               setFormData((prev: any) => ({
                 ...prev,
                 allowOverdraft: val as boolean,
@@ -150,7 +152,7 @@ const SavingsProductSettingsStep = ({
           <Checkbox
             id="dormancyTracking"
             checked={formData.trackDormancy}
-            onCheckedChange={(val) =>
+            onCheckedChange={val =>
               setFormData((prev: any) => ({
                 ...prev,
                 trackDormancy: val as boolean,
@@ -161,7 +163,7 @@ const SavingsProductSettingsStep = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SavingsProductSettingsStep;
+export default SavingsProductSettingsStep
