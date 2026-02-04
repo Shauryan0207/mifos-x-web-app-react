@@ -6,22 +6,21 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 import axios from 'axios'
+import {
+  getApiBaseUrl,
+  getAuthHeaders,
+  getDefaultHeaders,
+} from '@/lib/http-client'
 
 const fineract = axios.create({
-  baseURL: 'https://localhost:8443/fineract-provider/api/v1',
-  headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  },
+  baseURL: getApiBaseUrl(),
+  headers: getDefaultHeaders(),
   withCredentials: true,
 })
 
 fineract.interceptors.request.use(config => {
-  const token = localStorage.getItem('mifosToken')
-  if (token) {
-    config.headers['Authorization'] = `Basic ${token}`
-    config.headers['Fineract-Platform-TenantId'] = 'default'
-  }
+  const authHeaders = getAuthHeaders()
+  Object.assign(config.headers, authHeaders)
   return config
 })
 
