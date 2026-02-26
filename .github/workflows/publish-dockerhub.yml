@@ -37,7 +37,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: mifos/web-app-react
+          images: openmf/web-app-react
           tags: |
             # On dev branch: tag as "dev" + git sha
             type=ref,event=branch
