@@ -40,9 +40,11 @@ const Reports = () => {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchReports = async () => {
+      setLoading(true); // Start the spinner
       try {
         const response = await reportsApi.retrieveReportList()
         const details = response.data ?? []
@@ -59,7 +61,9 @@ const Reports = () => {
         }
       } catch (error) {
         console.error('Failed to fetch reports', error)
-      }
+      } finally {
+      setLoading(false); // Stop the spinner even if there is an error
+    }
     }
     fetchReports()
   }, [category])
@@ -155,8 +159,15 @@ const Reports = () => {
             </TableRow>
           </TableHeader>
 
-          <TableBody>
-            {paginated.map((report, idx) => (
+      <TableBody>
+         {loading ? (
+          <TableRow>
+            <TableCell colSpan={3} className="h-24 text-center text-zinc-500">
+                   Loading reports from demo server...
+          </TableCell>
+      </TableRow>
+        ) : paginated.length > 0 ? (
+            paginated.map((report, idx) => (
               <TableRow
                 key={idx}
                 className="hover:bg-zinc-100 dark:hover:bg-zinc-700 cursor-pointer transition-colors"
@@ -174,7 +185,14 @@ const Reports = () => {
                   {report.reportCategory}
                 </TableCell>
               </TableRow>
-            ))}
+            ))
+            ) : (
+        <TableRow>
+             <TableCell colSpan={3} className="h-24 text-center text-zinc-500">
+                No reports found.
+              </TableCell>
+        </TableRow>
+          )}
           </TableBody>
         </Table>
       </div>
