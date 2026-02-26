@@ -2,7 +2,7 @@
 # Publish Mifos X React Web App to Docker Hub
 # =============================================================================
 # Triggers on:
-#   - Push to 'develop' branch  → tags: develop, <short-sha>, <long-sha>
+#   - Push to 'dev' branch  → tags: dev, <short-sha>, <long-sha>
 #   - Semver tag push (v*.*.*)  → tags: <version>, latest
 #
 # Secrets required in the repository:
@@ -15,7 +15,7 @@ name: Publish to Docker Hub
 on:
   push:
     branches:
-      - develop
+      - dev
     tags:
       - "v*.*.*"
 
@@ -39,7 +39,7 @@ jobs:
         with:
           images: mifos/web-app-react
           tags: |
-            # On develop branch: tag as "develop" + git sha
+            # On dev branch: tag as "dev" + git sha
             type=ref,event=branch
             type=sha,prefix=,format=short
             type=sha,prefix=,format=long
