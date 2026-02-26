@@ -46,8 +46,6 @@ import { Plus } from 'lucide-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { Checkbox } from '@/components/ui/checkbox'
-import TableSkeleton from '@/components/custom/loading/TableSkeleton'
-import ErrorState from '@/components/custom/error/ErrorState'
 
 const centersApi = new CentersApi(getConfiguration())
 
@@ -205,9 +203,9 @@ const Centers = () => {
       </div>
 
       {/* Centers Table */}
-      {loading && <TableSkeleton rows={5} columns={5} />}
+      {loading && <p className="text-center py-8 text-zinc-500">Loading...</p>}
 
-      {error && <ErrorState message={error} onRetry={fetchCenters} />}
+      {error && <p className="text-center py-8 text-red-500">{error}</p>}
 
       {!loading && !error && (
         <div className="bg-white dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 shadow-sm">
