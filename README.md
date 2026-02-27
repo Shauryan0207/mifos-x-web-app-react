@@ -143,7 +143,7 @@ For Docker environment variables, see `.env.docker.sample`.
 
 ## �🔧 Environment Variables
 
-The application uses environment variables for configuration. Copy `.env.sample` to `.env` or `.env.local` and adjust the values as needed.
+The application uses environment variables for configuration. Copy `.env.sample` to `.env` or `.env.development.local` and adjust the values as needed.
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -152,19 +152,25 @@ The application uses environment variables for configuration. Copy `.env.sample`
 | `VITE_FINERACT_API_VERSION` | API version path | `/api` |
 | `VITE_FINERACT_PLATFORM_TENANT_IDENTIFIER` | Tenant identifier for multi-tenant deployments | `default` |
 
-### Example Configuration
+### Manual Fineract Setup (Without Docker)
+
+If running Apache Fineract manually (e.g., on `https://localhost:8443`):
+
+1. Create a file: ```.env.development.local```
+
+
+2. Add the below configurations
 
 ```bash
-# .env.local
+# .env.development.local
 VITE_FINERACT_API_URL=https://localhost:8443
 VITE_FINERACT_API_PROVIDER=/fineract-provider
 VITE_FINERACT_API_VERSION=/api
 VITE_FINERACT_PLATFORM_TENANT_IDENTIFIER=default
+VITE_FINERACT_PLUGIN_OIDC_ENABLED=false
 ```
 
 > **Note:** Files ending in `.local` are ignored by git and should be used for machine-specific configuration.
-
-For detailed documentation of all available variables, see [.env.sample](./.env.sample).
 
 ---
 
