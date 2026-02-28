@@ -156,7 +156,7 @@ The application uses environment variables for configuration. Copy `.env.sample`
 
 If running Apache Fineract manually (e.g., on `https://localhost:8443`):
 
-1. Create a file: ```.env.development.local```
+1. Create a file: `.env.development.local`
 
 
 2. Add the below configurations
