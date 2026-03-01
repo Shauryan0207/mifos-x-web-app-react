@@ -25,10 +25,13 @@ import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { useAppDispatch } from '@/app/hook'
 import { logout } from '@/pages/login/loginSlice'
+import { useTranslation } from 'react-i18next'
+import { LanguageSwitcher } from '@/components/custom/language-switcher/LanguageSwitcher'
 
 const MfNavbar = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { t } = useTranslation(['common', 'accounting', 'clients', 'organization', 'products', 'loans'])
 
   const handleNavigate = (path?: string) => {
     if (!path || path.trim() === '') return
@@ -61,14 +64,14 @@ const MfNavbar = () => {
         <DropDown
           name={
             <span className="flex items-center gap-2">
-              <Landmark /> Institution
+              <Landmark /> {t('common:nav.institution')}
             </span>
           }
           options={[
-            { label: 'Clients', path: 'clients' },
-            { label: 'Groups', path: 'groups' },
-            { label: 'Centers', path: 'centers' },
-            { label: 'Accounting', path: 'accounting' },
+            { label: t('clients:title'), path: 'clients' },
+            { label: t('clients:groups'), path: 'groups' },
+            { label: t('clients:centers'), path: 'centers' },
+            { label: t('accounting:title'), path: 'accounting' },
           ]}
           onSelect={handleNavigate}
         />
@@ -76,36 +79,36 @@ const MfNavbar = () => {
           className="flex items-center gap-2 shadow-none bg-transparent hover:bg-[#0e6aa5] hover:text-white dark:text-white"
           onClick={() => navigate('/accounting')}
         >
-          <Banknote /> Accounting
+          <Banknote /> {t('accounting:title')}
         </Button>
         <DropDown
           name={
             <span className="flex items-center gap-2">
-              <ChartBar /> Reports
+              <ChartBar /> {t('common:nav.reports')}
             </span>
           }
           options={[
-            { label: 'All', path: 'reports' },
-            { label: 'Clients', path: 'reports/client' },
-            { label: 'Loans', path: 'reports/loan' },
-            { label: 'Savings', path: 'reports/savings' },
-            { label: 'Funds', path: 'reports/fund' },
-            { label: 'Accounting', path: 'reports/accounting' },
+            { label: t('common:actions.all'), path: 'reports' },
+            { label: t('clients:title'), path: 'reports/client' },
+            { label: t('loans:title'), path: 'reports/loan' },
+            { label: t('loans:savings'), path: 'reports/savings' },
+            { label: t('organization:nav.funds'), path: 'reports/fund' },
+            { label: t('accounting:title'), path: 'reports/accounting' },
           ]}
           onSelect={handleNavigate}
         />
         <DropDown
           name={
             <span className="flex items-center gap-2">
-              <Shield /> Admin
+              <Shield /> {t('common:nav.admin')}
             </span>
           }
           options={[
-            { label: 'Users', path: 'appusers' },
-            { label: 'Organization', path: 'organization' },
-            { label: 'System', path: 'system' },
-            { label: 'Products', path: 'products' },
-            { label: 'Templates', path: 'templates' },
+            { label: t('common:nav.users'), path: 'appusers' },
+            { label: t('organization:title'), path: 'organization' },
+            { label: t('common:nav.system'), path: 'system' },
+            { label: t('products:title'), path: 'products' },
+            { label: t('common:nav.templates'), path: 'templates' },
           ]}
           onSelect={handleNavigate}
         />
@@ -116,16 +119,7 @@ const MfNavbar = () => {
         <button className="hover:text-gray-200 transition-colors">
           <Search className="w-5 h-5" />
         </button>
-        <DropDown
-          name={<span className="flex items-center gap-1">Language</span>}
-          options={[
-            { label: 'English' },
-            { label: 'Spanish' },
-            { label: 'French' },
-            { label: 'Italian' },
-          ]}
-          onSelect={handleNavigate}
-        />
+        <LanguageSwitcher className="w-[130px] bg-[#1074b9] border-white text-white hover:bg-[#0e6aa5]" />
         <Button
           variant="ghost"
           className="hover:text-gray-200 transition-colors hover:bg-transparent dark:hover:bg-transparent cursor-pointer"
@@ -151,12 +145,12 @@ const MfNavbar = () => {
           }
           options={[
             {
-              label: 'Help',
+              label: t('common:nav.help'),
               path: 'https://mifosforge.jira.com/wiki/spaces/docs/pages/52035622/User+Manualsers',
             },
-            { label: 'Profile', path: 'profile' },
-            { label: 'Settings', path: 'settings' },
-            { label: 'Sign Out', path: 'signout' },
+            { label: t('common:nav.profile'), path: 'profile' },
+            { label: t('common:nav.settings'), path: 'settings' },
+            { label: t('common:actions.signOut'), path: 'signout' },
           ]}
           onSelect={handleNavigate}
         />

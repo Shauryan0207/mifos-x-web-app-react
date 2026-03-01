@@ -1,0 +1,40 @@
+{
+  "addCenter": "Add Center",
+  "addClient": "Add Client",
+  "addGroup": "Add Group",
+  "borrower": "Borrower: ",
+  "centers": "Centers",
+  "checkerInboxAndTasks": "Checker Inbox and Tasks",
+  "client": "Client",
+  "clientName": "Client Name :",
+  "createCenter": "Create Center",
+  "createGuarantor": "Create Guarantor",
+  "errors": {
+    "failedApproveClients": "Failed to approve one or more clients.",
+    "failedLoadCenters": "Failed to load centers. Please try again.",
+    "failedLoadGroups": "Failed to load groups. Please try again.",
+    "noClientsSelected": "No clients selected for approval."
+  },
+  "groups": "Groups",
+  "holder": "Holder: ",
+  "individualCollectionSheet": "Individual Collection Sheet",
+  "noReports": "No reports found.",
+  "pending": {
+    "noPendingCenters": "No pending centers.",
+    "noPendingClients": "No pending clients for approval.",
+    "noPendingGroups": "No pending groups.",
+    "showPendingCenters": "Show Pending Centers",
+    "showPendingClients": "Show Pending Clients",
+    "showPendingGroups": "Show Pending Groups"
+  },
+  "recoverFromGuarantor": "Recover From Guarantor",
+  "searchByName": "Search by Name, External ID...",
+  "searchByNameOrExternalId": "Search by Name or External ID...",
+  "success": {
+    "clientsApproved": "Selected clients approved successfully."
+  },
+  "title": "Clients",
+  "unnamedClient": "Unnamed Client",
+  "viewGuarantors": "View Guarantors",
+  "withdrawnByClient": "Withdrawn by Client"
+}
