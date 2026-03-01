@@ -23,7 +23,7 @@ import { Button } from '@/components/ui/button'
 
 import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
 
-import { UsersApi, type GetUsersResponse } from '@/fineract-api'
+import { UsersApi, type GetUsersResponse, type GetUsersUserIdResponse } from '@/fineract-api'
 import { getConfiguration } from '@/lib/fineract-openapi'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -38,7 +38,7 @@ const usersApi = new UsersApi(getConfiguration()) // API
 const ViewUsers = () => {
   const navigate = useNavigate()
   const { id } = useParams() // route param
-  const [users, setUsers] = useState<GetUsersResponse | null>(null)
+  const [users, setUsers] = useState<GetUsersUserIdResponse | null>(null)
 
   // fetch user by id
   useEffect(() => {
@@ -99,7 +99,7 @@ const ViewUsers = () => {
                   </AlertDialogCancel>
                   <AlertDialogAction
                     className="bg-red-600 hover:bg-red-700 text-white cursor-pointer"
-                    // onClick={handleDelete}
+                  // onClick={handleDelete}
                   >
                     Confirm
                   </AlertDialogAction>
@@ -159,13 +159,15 @@ const ViewUsers = () => {
           <div className="font-medium">Email</div>
           <div className="text-zinc-600 dark:text-zinc-400">{users?.email}</div>
 
-          <div className="font-medium">Office</div>
+          <div className="font-medium">Roles</div>
           <div className="text-zinc-600 dark:text-zinc-400">
-            {users?.officeName}
+            {users?.selectedRoles?.length
+              ? users.selectedRoles.map((role) => role.name).join(', ')
+              : '—'}
           </div>
 
-          <div className="font-medium">Roles</div>
-          {/* <div className="text-zinc-600 dark:text-zinc-400">{users?.selectedRoles?.name}</div> */}
+          <div className="font-medium">Is Self Service</div>
+          <div className="text-zinc-600 dark:text-zinc-400">{'Missing in OpenApi'}</div>
         </div>
 
         {/* back button */}
