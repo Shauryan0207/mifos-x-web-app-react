@@ -4,6 +4,18 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 
 ---
 
+## Admin Users
+
+### `/users`
+**Missing in `GetUsersResponse`:**
+- `isSelfServiceUser`
+
+### `/users/{id}`
+**Missing in `GetUsersUserIdResponse`:**
+- `isSelfServiceUser`
+
+---
+
 ## Admin Products
 
 ### `/products/loan-products/{id}/general`
