@@ -27,6 +27,13 @@
     "yes": "Oui",
     "no": "Non"
   },
+  "accessibility": {
+    "openNavigationMenu": "Ouvrir le menu de navigation",
+    "notifications": "Notifications",
+    "switchToDarkTheme": "Passer au thème sombre",
+    "switchToLightTheme": "Passer au thème clair",
+    "userMenu": "Menu utilisateur"
+  },
   "countries": {
     "AD": "Andorre",
     "AE": "Émirats arabes unis",
