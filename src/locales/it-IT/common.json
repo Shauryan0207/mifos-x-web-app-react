@@ -27,6 +27,13 @@
     "yes": "Sì",
     "no": "No"
   },
+  "accessibility": {
+    "openNavigationMenu": "Apri menu di navigazione",
+    "notifications": "Notifiche",
+    "switchToDarkTheme": "Passa al tema scuro",
+    "switchToLightTheme": "Passa al tema chiaro",
+    "userMenu": "Menu utente"
+  },
   "countries": {
     "AD": "Andorra",
     "AE": "Emirati Arabi Uniti",
