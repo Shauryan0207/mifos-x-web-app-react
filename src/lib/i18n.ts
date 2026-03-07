@@ -15,7 +15,7 @@ i18next
   .init({
     fallbackLng: 'en-US',
     supportedLngs: ['en-US', 'es-ES', 'fr-FR', 'it-IT'],
-    ns: ['common', 'auth', 'accounting', 'clients', 'organization', 'products', 'loans'],
+    ns: ['common', 'auth', 'accounting', 'clients', 'centers', 'groups', 'organization', 'products', 'loans'],
     defaultNS: 'common',
     load: 'currentOnly',
     interpolation: { escapeValue: false },
