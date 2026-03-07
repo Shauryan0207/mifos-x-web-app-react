@@ -71,7 +71,8 @@ const CentersView = () => {
   }
 
   // Loading / error states
-  if (fetchError) return <div className="p-6 text-red-500">{t('failedToLoad')}</div>
+  if (fetchError)
+    return <div className="p-6 text-red-500">{t('failedToLoad')}</div>
   if (!center) return <div className="p-6">{tc('actions.loading')}</div>
 
   // Map backend status codes to Tailwind colors
@@ -94,7 +95,12 @@ const CentersView = () => {
   const menuOptions = [
     // Activate if not active
     ...(!isActive
-      ? [{ label: t('view.menu.activate'), onClick: () => alert(t('view.activateTodo')) }]
+      ? [
+          {
+            label: t('view.menu.activate'),
+            onClick: () => alert(t('view.activateTodo')),
+          },
+        ]
       : []),
 
     // Edit allowed by permission
@@ -105,7 +111,11 @@ const CentersView = () => {
     // Group-related actions
     { label: t('view.menu.addGroup'), path: 'groups', disabled: true },
     { label: t('view.menu.manageGroups'), path: 'centers' },
-    { label: t('view.menu.centersSavingApplication'), path: 'accounting', disabled: true },
+    {
+      label: t('view.menu.centersSavingApplication'),
+      path: 'accounting',
+      disabled: true,
+    },
 
     // Nested "More" options
     {
@@ -122,19 +132,22 @@ const CentersView = () => {
         // Delete only if active
         ...(isActive
           ? [
-            {
-              label: t('view.menu.delete'),
-              onClick: () => {
-                if (confirm(t('view.confirmDelete'))) {
-                  handleDelete()
-                }
+              {
+                label: t('view.menu.delete'),
+                onClick: () => {
+                  if (confirm(t('view.confirmDelete'))) {
+                    handleDelete()
+                  }
+                },
               },
-            },
-          ]
+            ]
           : []),
 
         // Always allow closing
-        { label: t('view.menu.close'), path: `centers/${center.id}/actions/close` },
+        {
+          label: t('view.menu.close'),
+          path: `centers/${center.id}/actions/close`,
+        },
 
         // Attach meeting only if active and no calendar yet
         ...(isActive && !hasCal
@@ -142,7 +155,11 @@ const CentersView = () => {
           : []),
 
         // Disabled history option
-        { label: t('view.menu.staffAssignmentHistory'), path: 'email', disabled: true },
+        {
+          label: t('view.menu.staffAssignmentHistory'),
+          path: 'email',
+          disabled: true,
+        },
       ],
     },
   ]
@@ -172,13 +189,21 @@ const CentersView = () => {
               title={statusVal || tc('status.unknown')}
               className={`${statusClass} w-3 h-3`}
             />
-            <span>{t('view.centerName')} {center.name}</span>
+            <span>
+              {t('view.centerName')} {center.name}
+            </span>
           </div>
 
           {/* Info fields */}
-          <div>{t('view.accountNo')} {center.accountNo ?? '—'}</div>
-          <div>{t('view.office')} {center.officeName}</div>
-          <div>{t('view.externalId')} {center.externalId ?? '—'}</div>
+          <div>
+            {t('view.accountNo')} {center.accountNo ?? '—'}
+          </div>
+          <div>
+            {t('view.office')} {center.officeName}
+          </div>
+          <div>
+            {t('view.externalId')} {center.externalId ?? '—'}
+          </div>
           <div>
             {t('view.activationDate')}{' '}
             {formatDate(center.activationDate, i18n.language)}
@@ -202,8 +227,12 @@ const CentersView = () => {
 
           {/* Meeting info */}
           <div className="mt-30 bg-[#0662a3] px-4 py-2 rounded-md text-sm font-medium text-white">
-            <div>{t('view.nextMeetingOn')} {t('view.missingInOpenAPI')}</div>
-            <div>{t('view.meetingFrequency')} {t('view.missingInOpenAPI')}</div>
+            <div>
+              {t('view.nextMeetingOn')} {t('view.missingInOpenAPI')}
+            </div>
+            <div>
+              {t('view.meetingFrequency')} {t('view.missingInOpenAPI')}
+            </div>
           </div>
         </div>
       </div>
@@ -211,7 +240,10 @@ const CentersView = () => {
       {/* Tabs */}
       <AppTabs
         tabs={[
-          { label: t('view.tabs.general'), href: `centers/${center.id}/general` },
+          {
+            label: t('view.tabs.general'),
+            href: `centers/${center.id}/general`,
+          },
           { label: t('view.tabs.notes'), href: `centers/${center.id}/notes` },
         ]}
       />

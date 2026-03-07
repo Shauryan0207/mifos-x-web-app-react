@@ -110,8 +110,16 @@ export const AppSidebar = () => {
           </SidebarGroupLabel>
           <SidebarMenu>
             {[
-              { icon: <Gauge />, label: t('nav.dashboard'), route: 'dashboard' },
-              { icon: <Send />, label: t('nav.navigation'), route: 'navigation' },
+              {
+                icon: <Gauge />,
+                label: t('nav.dashboard'),
+                route: 'dashboard',
+              },
+              {
+                icon: <Send />,
+                label: t('nav.navigation'),
+                route: 'navigation',
+              },
               {
                 icon: <Check />,
                 label: t('nav.checkerInboxAndTasks'),

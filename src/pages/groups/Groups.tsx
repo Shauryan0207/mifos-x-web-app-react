@@ -83,7 +83,9 @@ const Groups = () => {
         '', // orderBy
         '' // sortOrder
       )
-      const items = Array.from(response.data?.pageItems ?? []) as ExtendedGroupsPageItem[]
+      const items = Array.from(
+        response.data?.pageItems ?? []
+      ) as ExtendedGroupsPageItem[]
       setGroups(items)
     } catch (err) {
       console.error('Failed to fetch groups', err)
@@ -206,26 +208,43 @@ const Groups = () => {
       </div>
 
       {/* Groups Table */}
-      {loading && <p className="text-center py-8 text-zinc-500">{tc('actions.loading')}</p>}
+      {loading && (
+        <p className="text-center py-8 text-zinc-500">
+          {tc('actions.loading')}
+        </p>
+      )}
 
-      {error && <p className="text-center py-8 text-red-500">{t('failedToLoad')}</p>}
+      {error && (
+        <p className="text-center py-8 text-red-500">{t('failedToLoad')}</p>
+      )}
 
       {!loading && !error && (
         <div className="bg-white dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 shadow-sm">
           <Table>
             {/* Caption */}
             <TableCaption className="text-sm text-gray-500 dark:text-gray-400 pt-6 pb-2">
-              {tc('pagination.showing', { current: paginated.length, total: filtered.length, page, pages: totalPages })}
+              {tc('pagination.showing', {
+                current: paginated.length,
+                total: filtered.length,
+                page,
+                pages: totalPages,
+              })}
             </TableCaption>
 
             {/* Table Header */}
             <TableHeader>
               <TableRow className="text-base">
                 <TableHead className="px-6 py-4">{t('table.name')}</TableHead>
-                <TableHead className="px-6 py-4">{t('table.accountNo')}</TableHead>
-                <TableHead className="px-6 py-4">{t('table.externalId')}</TableHead>
+                <TableHead className="px-6 py-4">
+                  {t('table.accountNo')}
+                </TableHead>
+                <TableHead className="px-6 py-4">
+                  {t('table.externalId')}
+                </TableHead>
                 <TableHead className="px-6 py-4">{t('table.status')}</TableHead>
-                <TableHead className="px-6 py-4">{t('table.officeName')}</TableHead>
+                <TableHead className="px-6 py-4">
+                  {t('table.officeName')}
+                </TableHead>
               </TableRow>
             </TableHeader>
 
@@ -260,7 +279,9 @@ const Groups = () => {
                       />
                     )}
                   </TableCell>
-                  <TableCell className="px-6 py-4">{group.officeName}</TableCell>
+                  <TableCell className="px-6 py-4">
+                    {group.officeName}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -75,7 +75,9 @@ const MfNavbar = () => {
             name={
               <span className="flex items-center gap-2">
                 <Menu className="w-5 h-5" aria-hidden="true" />
-                <span className="sr-only">{t('common:accessibility.openNavigationMenu')}</span>
+                <span className="sr-only">
+                  {t('common:accessibility.openNavigationMenu')}
+                </span>
               </span>
             }
             options={[
@@ -205,7 +207,9 @@ const MfNavbar = () => {
           name={
             <span className="flex items-center gap-2">
               <User aria-hidden="true" />
-              <span className="sr-only">{t('common:accessibility.userMenu')}</span>
+              <span className="sr-only">
+                {t('common:accessibility.userMenu')}
+              </span>
             </span>
           }
           options={[
