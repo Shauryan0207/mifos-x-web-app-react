@@ -357,6 +357,7 @@
     "pageNotExist": "Vaya... Parece que esta página no existe.",
     "pending": "Pendiente",
     "rejected": "Rechazado",
+    "unknown": "Desconocido",
     "withdrawn": "Retirado"
   },
   "tooltips": {

@@ -236,7 +236,7 @@
     "generic": "Si è verificato un errore.",
     "invalidDate": "Data non valida.",
     "invalidEmail": "Indirizzo e-mail non valido.",
-    "maxLength": "Lunghezza massima superata.",
+    "maxLength": "Massimo {{max}} caratteri",
     "network": "Errore di rete. Riprova.",
     "networkError": "Errore di rete. Riprova.",
     "notFound": "Risorsa non trovata.",
@@ -339,7 +339,7 @@
     "itemsPerPage": "Elementi per pagina",
     "rowsPerPage": "Righe per pagina",
     "showing": "Visualizzazione {{current}} di {{total}} voci (pagina {{page}} di {{pages}})",
-    "showingReports": "Visualizzazione dei report"
+    "showingReports": "Visualizzazione di {{current}} su {{total}} report • Pagina {{page}} di {{pages}}"
   },
   "status": {
     "active": "Attivo",
@@ -357,6 +357,7 @@
     "pageNotExist": "Oops... Sembra che questa pagina non esista.",
     "pending": "In attesa",
     "rejected": "Rifiutato",
+    "unknown": "Sconosciuto",
     "withdrawn": "Ritirato"
   },
   "tooltips": {

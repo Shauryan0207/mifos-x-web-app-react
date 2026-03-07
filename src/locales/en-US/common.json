@@ -357,6 +357,7 @@
     "pageNotExist": "Oops.. Looks like this page doesn't exist.",
     "pending": "Pending",
     "rejected": "Rejected",
+    "unknown": "Unknown",
     "withdrawn": "Withdrawn"
   },
   "tooltips": {
