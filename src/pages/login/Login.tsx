@@ -38,6 +38,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { useTranslation, Trans } from 'react-i18next'
 import { LanguageSwitcher } from '@/components/custom/language-switcher/LanguageSwitcher'
+import { envConfig } from '@/lib/env-config'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -54,7 +55,9 @@ const Login = () => {
   const { loading, error } = useSelector((state: RootState) => state.auth)
 
   const [form, setForm] = useState({ username: '', password: '' })
+  const isDockerProxy = !envConfig.apiUrl
   const [server, setServer] = useState(() => {
+    if (isDockerProxy) return ''
     return localStorage.getItem('mifosServer') || 'https://localhost:8443'
   })
   const [tenant, setTenant] = useState(() => {
@@ -68,7 +71,9 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    localStorage.setItem('mifosServer', server)
+    if (!isDockerProxy) {
+      localStorage.setItem('mifosServer', server)
+    }
     localStorage.setItem('mifosTenant', tenant)
     dispatch(loginUser(form))
   }
@@ -134,30 +139,32 @@ const Login = () => {
 
       <div className="flex flex-col w-full min-h-screen lg:w-[30%] bg-white dark:bg-zinc-900 px-4 py-6 sm:px-10 justify-between">
         <div className="lg:h-[10%] flex flex-wrap gap-2 text-center justify-center">
-          <Select value={server} onValueChange={handleServerChange}>
-            <SelectTrigger className="w-[160px]">
-              <Label className=" text-zinc-900 dark:text-white">
-                {t('auth:login.server')}
-              </Label>
-              <SelectValue placeholder="https://localhost:8443" />
-            </SelectTrigger>
-            <SelectContent className="dark:bg-zinc-800 dark:text-white">
-              <SelectGroup>
-                <SelectItem value="https://sandbox.mifos.community">
-                  https://sandbox.mifos.community
-                </SelectItem>
-                <SelectItem value="https://demo.mifos.community">
-                  https://demo.mifos.community
-                </SelectItem>
-                <SelectItem value="https://localhost:8443">
-                  https://localhost:8443
-                </SelectItem>
-                <SelectItem value="http://localhost:4200">
-                  http://localhost:4200
-                </SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          {!isDockerProxy && (
+            <Select value={server} onValueChange={handleServerChange}>
+              <SelectTrigger className="w-[160px]">
+                <Label className=" text-zinc-900 dark:text-white">
+                  {t('auth:login.server')}
+                </Label>
+                <SelectValue placeholder="https://localhost:8443" />
+              </SelectTrigger>
+              <SelectContent className="dark:bg-zinc-800 dark:text-white">
+                <SelectGroup>
+                  <SelectItem value="https://sandbox.mifos.community">
+                    https://sandbox.mifos.community
+                  </SelectItem>
+                  <SelectItem value="https://demo.mifos.community">
+                    https://demo.mifos.community
+                  </SelectItem>
+                  <SelectItem value="https://localhost:8443">
+                    https://localhost:8443
+                  </SelectItem>
+                  <SelectItem value="http://localhost:4200">
+                    http://localhost:4200
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
 
           <LanguageSwitcher className="w-[140px] dark:bg-zinc-800 dark:text-white" />
 

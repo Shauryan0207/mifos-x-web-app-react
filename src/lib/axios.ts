@@ -11,6 +11,7 @@ import {
   getAuthHeaders,
   getDefaultHeaders,
 } from '@/lib/http-client'
+import { envConfig } from '@/lib/env-config'
 
 const getBaseURL = () => {
   const rawServer =
@@ -39,8 +40,15 @@ fineract.interceptors.request.use(config => {
 
   Object.assign(config.headers, authHeaders)
 
-  // Update baseURL dynamically in case it changed
-  config.baseURL = getBaseURL()
+  // Only override baseURL from localStorage when NOT running behind the
+  // Docker/nginx reverse-proxy.  In Docker, envConfig.apiUrl is empty and
+  // the axios instance was already created with a correct relative baseURL
+  // (e.g. "/fineract-provider/api/") that routes through the same-origin
+  // nginx proxy — overriding it with the localStorage value would break
+  // that by sending the request directly to https://localhost:8443.
+  if (envConfig.apiUrl) {
+    config.baseURL = getBaseURL()
+  }
 
   return config
 })
