@@ -42,6 +42,7 @@ import CreateFinancialActivityMappings from '@/pages/accounting/financial-activi
 import ViewFinancialActivityMappings from '@/pages/accounting/financial-activity-mappings/ViewFinancialActivityMappings'
 import PeriodicAccruals from '@/pages/accounting/periodic-accruals/PeriodicAccruals'
 import ProvisioningEntries from '@/pages/accounting/provisioning-entries/ProvisioningEntries'
+import CreateProvisioningEntry from '@/pages/accounting/provisioning-entries/CreateProvisioningEntry'
 import Reports from '@/pages/reports/Reports'
 import RunReports from '@/pages/reports/RunReports'
 import Users from '@/pages/users/Users'
@@ -314,6 +315,10 @@ const AppRoutes = () => {
           <Route
             path="/accounting/provisioning-entries"
             element={<ProvisioningEntries />}
+          />
+          <Route
+            path="/accounting/provisioning-entries/create"
+            element={<CreateProvisioningEntry />}
           />
 
           {/* Notifications Routes */}
