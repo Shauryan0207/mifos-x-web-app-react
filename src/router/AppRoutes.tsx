@@ -219,6 +219,7 @@ import ActivateSharesAccount from '@/pages/shares/shares-account-actions/activat
 import ApplyShares from '@/pages/shares/shares-account-actions/apply-shares/ApplyShares'
 import RedeemShares from '@/pages/shares/shares-account-actions/redeem-shares/RedeemShares'
 import CloseSharesAccount from '@/pages/shares/shares-account-actions/close-shares-account/CloseSharesAccount'
+import ViewTemplates from '@/pages/templates/ViewTemplates'
 
 const AppRoutes = () => {
   return (
@@ -367,6 +368,7 @@ const AppRoutes = () => {
 
           {/* Templates */}
           <Route path="/templates" element={<Templates />} />
+          <Route path="/templates/:id" element={<ViewTemplates />} />
 
           {/* Organization */}
           <Route path="/organization" element={<Organization />} />

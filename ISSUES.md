@@ -103,6 +103,18 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 
 ---
 
+## Admin Templates
+
+### `/templates/template`
+
+- `GetTemplatesTemplateResponse`: `entity`, `type` defined as numbers instead of arrays
+
+### `/templates/{id}/template`
+
+- no defined type
+
+---
+
 ## Institution Centers
 
 ### `/centers`
