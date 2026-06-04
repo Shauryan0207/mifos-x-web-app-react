@@ -36,6 +36,17 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 - More missing fields in description/code
 - Unnecessary fields also present
 
+### `/products/loan-products/create`
+
+**Missing in `GetLoanProductsTemplateResponse`:**
+
+- `fundOptions`
+- `allowPartialPeriodInterestCalculation` is misspelled
+- `delinquencyBucketOptions` missing
+- `interestFreePeriodOptions` missing
+- `overAppliedCalculationTypeOptions` missing
+- `floatingRateOptions` missing
+
 ### `/products/saving-products/{id}/general`
 
 **Missing in `GetSavingsProductsProductIdResponse`:**
