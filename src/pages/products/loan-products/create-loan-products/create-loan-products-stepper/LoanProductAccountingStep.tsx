@@ -7,41 +7,52 @@
  */
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import type { PostLoanProductsRequest } from '@/fineract-api'
 
-const LoanProductAccountingStep = () => {
+const ACCOUNTING_RULES = [
+  { value: '1', label: 'None' },
+  { value: '2', label: 'Cash' },
+  { value: '3', label: 'Accrual (Periodic)' },
+  { value: '4', label: 'Accrual (Upfront)' },
+]
+
+interface LoanProductAccountingStepProps {
+  formData: PostLoanProductsRequest
+  onChange: (data: PostLoanProductsRequest) => void
+}
+
+const LoanProductAccountingStep = ({
+  formData,
+  onChange,
+}: LoanProductAccountingStepProps) => {
   return (
     <div className="flex flex-col gap-6">
-      <RadioGroup className="flex flex-col md:flex-row gap-6">
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="none" id="none" />
-          <Label htmlFor="none" className="text-sm">
-            None
-          </Label>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="cash" id="cash" />
-          <Label htmlFor="cash" className="text-sm">
-            Cash
-          </Label>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="accrual_periodic" id="accrual_periodic" />
-          <Label htmlFor="accrual_periodic" className="text-sm">
-            Accrual (periodic)
-          </Label>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="accrual_upfront" id="accrual_upfront" />
-          <Label htmlFor="accrual_upfront" className="text-sm">
-            Accrual (upfront)
-          </Label>
-        </div>
+      <RadioGroup
+        value={formData.accountingRule?.toString() ?? '1'}
+        onValueChange={value =>
+          onChange({ ...formData, accountingRule: Number(value) })
+        }
+        className="flex flex-col md:flex-row gap-6"
+      >
+        {ACCOUNTING_RULES.map(({ value, label }) => (
+          <div key={value} className="flex items-center gap-2">
+            <RadioGroupItem value={value} id={`rule-${value}`} />
+            <Label
+              htmlFor={`rule-${value}`}
+              className="cursor-pointer font-normal"
+            >
+              {label}
+            </Label>
+          </div>
+        ))}
       </RadioGroup>
+
+      {formData.accountingRule && formData.accountingRule > 1 && (
+        <div className="w-full rounded-md border border-input px-3 py-2 text-sm text-muted-foreground bg-muted/40">
+          Accounting fields — not yet implemented
+        </div>
+      )}
     </div>
   )
 }
-
 export default LoanProductAccountingStep
