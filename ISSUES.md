@@ -57,6 +57,21 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 - `isDormancyTrackingActive`
 - Additional fields missing
 
+### `/savingsproducts (create)`
+
+**Missing in `PostSavingsProductsRequest`:**
+
+- `minRequiredOpeningBalance`
+- `lockinPeriodFrequency`
+- `lockinPeriodFrequencyType`
+- `withdrawalFeeForTransfers`
+- `minBalanceForInterestCalculation`
+- `enforceMinRequiredBalance`
+- `minRequiredBalance`
+- `withHoldTax`
+- `allowOverdraft`
+- `isDormancyTrackingActive`
+
 ### `/products/share`
 
 - Not present in OpenAPI
