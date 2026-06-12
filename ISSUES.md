@@ -81,6 +81,41 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 - `loanproducts?associations=productMixes`
 - `GetLoanProductsResponse` does not include product mix data
 
+### `/taxes/component`
+
+**Missing in `PostTaxesComponentsRequest`:**
+
+- `debitAccountType`
+- `debitAccountId`
+
+**Misspelled in `PostTaxesComponentsRequest`:**
+
+- `creditAccountId` is spelled as `creditAcountId` (missing 'c')
+- `debitAccountId` is spelled as `debitAcountId` (missing 'c')
+
+**Missing in `GetTaxesComponentsResponse`:**
+
+- `debitAccountType`
+- `debitAccount`
+
+### `/taxes/group`
+
+**Missing in `TaxGroupData` (template response):**
+
+- `taxComponents` — API returns it but not in spec, only `taxAssociations` is present
+
+**Missing in `GetTaxesGroupTaxAssociations`:**
+
+- `endDate`
+
+**Missing in `PutTaxesGroupTaxComponents`:**
+
+- `startDate`
+
+**Serialization issue in `PostTaxesGroupRequest` and `PutTaxesGroupTaxGroupIdRequest`:**
+
+- `taxComponents` is typed as `Set` but must be sent as array for correct JSON serialization
+
 ---
 
 ## Admin Organization
