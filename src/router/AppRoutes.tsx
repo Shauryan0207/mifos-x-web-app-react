@@ -220,6 +220,12 @@ import ApplyShares from '@/pages/shares/shares-account-actions/apply-shares/Appl
 import RedeemShares from '@/pages/shares/shares-account-actions/redeem-shares/RedeemShares'
 import CloseSharesAccount from '@/pages/shares/shares-account-actions/close-shares-account/CloseSharesAccount'
 import ViewTemplates from '@/pages/templates/ViewTemplates'
+import CreateTaxComponents from '@/pages/products/manage-tax-configurations/manage-tax-components/CreateTaxComponents'
+import ViewTaxComponents from '@/pages/products/manage-tax-configurations/manage-tax-components/ViewTaxComponents'
+import EditTaxComponents from '@/pages/products/manage-tax-configurations/manage-tax-components/EditTaxComponenets'
+import ViewTaxGroups from '@/pages/products/manage-tax-configurations/manage-tax-groups/ViewTaxGroups'
+import CreateTaxGroups from '@/pages/products/manage-tax-configurations/manage-tax-groups/CreateTaxGroups'
+import EditTaxGroups from '@/pages/products/manage-tax-configurations/manage-tax-groups/EditTaxGroups'
 
 const AppRoutes = () => {
   return (
@@ -604,8 +610,32 @@ const AppRoutes = () => {
             element={<ManageTaxComponents />}
           />
           <Route
+            path="/products/tax-configurations/tax-components/create"
+            element={<CreateTaxComponents />}
+          />
+          <Route
+            path="/products/tax-configurations/tax-components/:id"
+            element={<ViewTaxComponents />}
+          />
+          <Route
+            path="/products/tax-configurations/tax-components/:id/edit"
+            element={<EditTaxComponents />}
+          />
+          <Route
             path="/products/tax-configurations/tax-groups"
             element={<ManageTaxGroups />}
+          />
+          <Route
+            path="/products/tax-configurations/tax-groups/:id"
+            element={<ViewTaxGroups />}
+          />
+          <Route
+            path="/products/tax-configurations/tax-groups/create"
+            element={<CreateTaxGroups />}
+          />
+          <Route
+            path="/products/tax-configurations/tax-groups/:id/edit"
+            element={<EditTaxGroups />}
           />
 
           {/* Floating Rates */}
