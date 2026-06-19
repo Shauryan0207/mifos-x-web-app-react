@@ -226,6 +226,7 @@ import EditTaxComponents from '@/pages/products/manage-tax-configurations/manage
 import ViewTaxGroups from '@/pages/products/manage-tax-configurations/manage-tax-groups/ViewTaxGroups'
 import CreateTaxGroups from '@/pages/products/manage-tax-configurations/manage-tax-groups/CreateTaxGroups'
 import EditTaxGroups from '@/pages/products/manage-tax-configurations/manage-tax-groups/EditTaxGroups'
+import CreateCharges from '@/pages/products/charges/CreateCharges'
 
 const AppRoutes = () => {
   return (
@@ -519,6 +520,7 @@ const AppRoutes = () => {
 
           {/* Charges */}
           <Route path="/products/charges" element={<Charges />} />
+          <Route path="/products/charges/create" element={<CreateCharges />} />
           <Route path="/products/charges/:id" element={<ViewCharges />} />
           <Route path="/products/charges/:id/edit" element={<EditCharges />} />
 

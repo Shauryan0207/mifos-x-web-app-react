@@ -81,6 +81,19 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 - `loanproducts?associations=productMixes`
 - `GetLoanProductsResponse` does not include product mix data
 
+### `/charges`
+
+- `taxGroupId` missing from `ChargeRequest`
+- `taxGroupOptions` typed as `TaxGroupData`, but that type is missing `id` and `name`
+
+### `/fixeddepositproducts`
+
+- `amountRangeFrom`/`amountRangeTo` missing from `PostFixedDepositProductsChartSlabs`
+
+### `/recurringdepositproducts`
+
+- `amountRangeFrom`/`amountRangeTo` missing from `PostRecurringDepositProductsChartSlabs`
+
 ### `/taxes/component`
 
 **Missing in `PostTaxesComponentsRequest`:**
