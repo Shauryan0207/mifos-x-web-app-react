@@ -75,7 +75,9 @@ const ViewAccountNumberPreferences = () => {
             <Button
               className="bg-[#1074b9] hover:bg-[#1074c9] text-white cursor-pointer"
               onClick={() =>
-                navigate(`/account-number-preferences/${accountPref?.id}/edit`)
+                navigate(
+                  `/system/account-number-preferences/${accountPref?.id}/edit`
+                )
               }
             >
               <FontAwesomeIcon icon={faPenToSquare} /> Edit

@@ -228,6 +228,7 @@ import CreateTaxGroups from '@/pages/products/manage-tax-configurations/manage-t
 import EditTaxGroups from '@/pages/products/manage-tax-configurations/manage-tax-groups/EditTaxGroups'
 import CreateCharges from '@/pages/products/charges/CreateCharges'
 import EditPaymentTypes from '@/pages/organization/payment-types/EditPaymentTypes'
+import EditAccountNumberPreferences from '@/pages/system/account-number-preferences/EditAccountNumberPreferences'
 
 const AppRoutes = () => {
   return (
@@ -689,6 +690,10 @@ const AppRoutes = () => {
           <Route
             path="/system/account-number-preferences/:id"
             element={<ViewAccountNumberPreferences />}
+          />
+          <Route
+            path="/system/account-number-preferences/:id/edit"
+            element={<EditAccountNumberPreferences />}
           />
 
           {/* Entity to Entity Mapping */}
