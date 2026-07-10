@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import { AppBreadCrumbs } from '@/components/custom/breadcrumbs/AppBreadCrumbs'
@@ -16,8 +16,10 @@ import AppSelect from '@/components/custom/select/AppSelect'
 
 const accountNumberFormatApi = new AccountNumberFormatApi(getConfiguration())
 
-const CreateAccountNumberPreferences = () => {
+const EditAccountNumberPreferences = () => {
+  const { id } = useParams()
   const navigate = useNavigate()
+
   const [accountTypeOptions, setAccountTypeOptions] = useState<
     Array<{ id?: number; code?: string; value?: string }>
   >([])
@@ -32,19 +34,32 @@ const CreateAccountNumberPreferences = () => {
     prefix: '',
   })
 
-  // template for dropdowns
+  // fetch template for dropdowns
   useEffect(() => {
-    const fetchTemplate = async () => {
+    const fetchData = async () => {
       try {
-        const response = await accountNumberFormatApi.retrieveTemplate2()
-        setAccountTypeOptions(response.data?.accountTypeOptions || [])
-        setPrefixTypeOptions(response.data?.prefixTypeOptions || {})
+        const templateRes = await accountNumberFormatApi.retrieveTemplate2()
+        setAccountTypeOptions(templateRes.data?.accountTypeOptions || [])
+        setPrefixTypeOptions(templateRes.data?.prefixTypeOptions || {})
+
+        if (id) {
+          const recordRes = await accountNumberFormatApi.retrieveOne(Number(id))
+          const record = recordRes.data ?? {}
+          const matchedType = (templateRes.data?.accountTypeOptions || []).find(
+            o => o.id === record.accountType?.id
+          )
+          setFormData({
+            accountType: record.accountType?.id?.toString() ?? '',
+            accountTypeCode: matchedType?.code || '',
+            prefix: record.prefixType?.id?.toString() ?? '',
+          })
+        }
       } catch (err) {
-        console.error('Failed to fetch account number format template', err)
+        console.error('Failed to fetch account number preference', err)
       }
     }
-    fetchTemplate()
-  }, [])
+    fetchData()
+  }, [id])
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -54,28 +69,23 @@ const CreateAccountNumberPreferences = () => {
     ? prefixTypeOptions[formData.accountTypeCode] || []
     : []
 
-  // submit form
+  // update account number preference
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!formData.accountType) {
-      alert('Please select an account type.')
-      return
-    }
     if (!formData.prefix) {
       alert('Please select a prefix.')
       return
     }
 
     try {
-      await accountNumberFormatApi.create({
-        accountType: Number(formData.accountType),
+      await accountNumberFormatApi.update1(Number(id), {
         prefixType: Number(formData.prefix),
       })
-      alert('Account Number Preference created successfully!')
+      alert('Account Number Preference updated successfully!')
       navigate('/system/account-number-preferences')
     } catch (err) {
-      console.error('Failed to create account number preference', err)
-      alert('Failed to create account number preference')
+      console.error('Failed to update account number preference', err)
+      alert('Failed to update account number preference')
     }
   }
 
@@ -89,40 +99,25 @@ const CreateAccountNumberPreferences = () => {
             label: 'Account Number Preferences',
             href: '/system/account-number-preferences',
           },
-          { label: 'Create', current: true },
+          { label: 'Edit', current: true },
         ]}
       />
 
       <div className="bg-white dark:bg-zinc-900 rounded-md border p-8 shadow max-w-xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-6">Create</h2>
+        <h2 className="text-2xl font-semibold mb-6">Edit</h2>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
-          {/* Account Type Select */}
+          {/* Account Type (cannot be edited)*/}
           <div className="w-full space-y-2">
-            <AppSelect
-              selectLabel="Account Type*"
-              selectPlaceholder="Select Account Type"
-              selectValue={formData.accountType}
-              selectOnChange={val => {
-                const selected = accountTypeOptions.find(
-                  o => o.id?.toString() === val
-                )
-                setFormData(prev => ({
-                  ...prev,
-                  accountType: val,
-                  accountTypeCode: selected?.code || '',
-                  prefix: '',
-                }))
-              }}
-              selectClassname="w-full space-y-2"
-              selectOptions={accountTypeOptions.map(o => ({
-                id: o.id?.toString() || '',
-                name: o.value || '',
-              }))}
-            />
+            <label className="text-sm font-medium">Account Type</label>
+            <div className="w-full rounded-md border bg-muted px-3 py-2 text-sm text-muted-foreground">
+              {accountTypeOptions.find(
+                o => o.id?.toString() === formData.accountType
+              )?.value || '—'}
+            </div>
           </div>
 
-          {/* Prefix Field Select */}
+          {/* Prefix Field */}
           <div className="w-full space-y-2">
             <AppSelect
               selectLabel="Prefix Field"
@@ -159,4 +154,4 @@ const CreateAccountNumberPreferences = () => {
   )
 }
 
-export default CreateAccountNumberPreferences
+export default EditAccountNumberPreferences
