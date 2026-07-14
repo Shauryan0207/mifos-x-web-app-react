@@ -229,6 +229,7 @@ import EditTaxGroups from '@/pages/products/manage-tax-configurations/manage-tax
 import CreateCharges from '@/pages/products/charges/CreateCharges'
 import EditPaymentTypes from '@/pages/organization/payment-types/EditPaymentTypes'
 import EditAccountNumberPreferences from '@/pages/system/account-number-preferences/EditAccountNumberPreferences'
+import CreateClients from '@/pages/clients/create-clients/CreateClients'
 
 const AppRoutes = () => {
   return (
@@ -717,6 +718,7 @@ const AppRoutes = () => {
 
           {/* Clients */}
           <Route path="/clients" element={<Clients />} />
+          <Route path="/clients/create" element={<CreateClients />} />
           <Route path="/clients/:id" element={<ClientsView />}>
             <Route path="general" element={<ClientsGeneralTab />} />
             <Route path="notes" element={<ClientNotesTab />} />
