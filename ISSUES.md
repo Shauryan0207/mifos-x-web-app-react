@@ -249,3 +249,11 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 ### `/clients/{id}/charges/{chargeId}`
 
 - `GetClientsChargesPageItems` missing `clientTransactionDatas`
+
+### `/clients/template`
+
+- `GetClientsTemplateResponse` missing `genderOptions`, `clientTypeOptions`, `clientClassificationOptions`
+
+### `/clients`
+
+- `PostClientsRequest` missing `staffId`, `isStaff`, `submittedOnDate`
