@@ -257,3 +257,11 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 ### `/clients`
 
 - `PostClientsRequest` missing `staffId`, `isStaff`, `submittedOnDate`
+
+### `/clients/{id}` (GET)
+
+- `GetClientsClientIdResponse` missing `legalFormId`, `middlename`, `dateOfBirth`, `genderId`, `staffId`, `mobileNo`, `clientTypeId`, `clientClassificationId`, `submittedOnDate`
+
+### `/clients/{id}` (PUT)
+
+- `PutClientsClientIdRequest` only has `externalId`, `resourceExternalId`
