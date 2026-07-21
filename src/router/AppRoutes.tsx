@@ -230,6 +230,7 @@ import CreateCharges from '@/pages/products/charges/CreateCharges'
 import EditPaymentTypes from '@/pages/organization/payment-types/EditPaymentTypes'
 import EditAccountNumberPreferences from '@/pages/system/account-number-preferences/EditAccountNumberPreferences'
 import CreateClients from '@/pages/clients/create-clients/CreateClients'
+import EditClients from '@/pages/clients/edit-clients/EditClients'
 
 const AppRoutes = () => {
   return (
@@ -732,6 +733,7 @@ const AppRoutes = () => {
             <Route path="documents" element={<ClientsDocumentsTab />} />
             <Route path="identities" element={<ClientsIdentitiesTab />} />
           </Route>
+          <Route path="/clients/:id/edit" element={<EditClients />} />
 
           <Route
             path="/clients/:id/loans-accounts/:id/actions/GoodwillCredit"
