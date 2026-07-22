@@ -265,3 +265,11 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 ### `/clients/{id}` (PUT)
 
 - `PutClientsClientIdRequest` only has `externalId`, `resourceExternalId`
+
+### `/savingsaccounts/template`
+
+- `GetSavingsAccountsTemplateResponse` missing `fieldOfficerOptions`, `interestCompoundingPeriodTypeOptions`, `interestPostingPeriodTypeOptions`, `interestCalculationTypeOptions`, `interestCalculationDaysInYearTypeOptions`, `lockinPeriodFrequencyTypeOptions`, `savingsAmountOnClosureTypeOptions`, `withdrawalFeeTypeOptions`, `chargeOptions`, `currencyOptions`
+
+### `/savingsaccounts`
+
+- `PostSavingsAccountsRequest` missing `fieldOfficerId`, `nominalAnnualInterestRate`, `interestCompoundingPeriodType`, `interestPostingPeriodType`, `interestCalculationType`, `interestCalculationDaysInYearType`, `minRequiredOpeningBalance`, `lockinPeriodFrequency`,

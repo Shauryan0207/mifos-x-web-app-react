@@ -126,8 +126,7 @@ const ClientsView = () => {
                     },
                     {
                       label: t('view.menu.newSavingsAccount'),
-                      path: 'signature',
-                      disabled: true,
+                      path: `clients/${id}/savings-accounts/create`,
                     },
                     {
                       label: t('view.menu.newShareAccount'),
