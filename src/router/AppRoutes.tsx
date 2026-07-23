@@ -231,6 +231,7 @@ import EditPaymentTypes from '@/pages/organization/payment-types/EditPaymentType
 import EditAccountNumberPreferences from '@/pages/system/account-number-preferences/EditAccountNumberPreferences'
 import CreateClients from '@/pages/clients/create-clients/CreateClients'
 import EditClients from '@/pages/clients/edit-clients/EditClients'
+import CreateSavingsAccount from '@/pages/savings/CreateSavingsAccount'
 
 const AppRoutes = () => {
   return (
@@ -857,6 +858,10 @@ const AppRoutes = () => {
             element={<ViewCharge />}
           />
 
+          <Route
+            path="/clients/:id/savings-accounts/create"
+            element={<CreateSavingsAccount />}
+          />
           <Route
             path="/clients/:groupId/savings-accounts/:accountId"
             element={<SavingsAccountView />}
