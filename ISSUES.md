@@ -273,3 +273,7 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 ### `/savingsaccounts`
 
 - `PostSavingsAccountsRequest` missing `fieldOfficerId`, `nominalAnnualInterestRate`, `interestCompoundingPeriodType`, `interestPostingPeriodType`, `interestCalculationType`, `interestCalculationDaysInYearType`, `minRequiredOpeningBalance`, `lockinPeriodFrequency`,
+
+### `/accounts/share/template`
+
+- `GetAccountsTypeTemplateResponse` missing `chargeOptions`, `minimumActivePeriodFrequencyTypeOptions``lockinPeriodFrequencyTypeOptions`, `currencyOptions`
