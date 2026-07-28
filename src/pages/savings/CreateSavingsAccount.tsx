@@ -16,7 +16,7 @@ import {
 } from '@/fineract-api'
 import { useEffect, useState } from 'react'
 import MultiStepForm from '@/components/custom/multi-step-form/MultiStepForm'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 
 const savingsAccountApi = new SavingsAccountApi(getConfiguration())
 
@@ -25,23 +25,29 @@ const CreateSavingsAccount = () => {
   const { id } = useParams()
   const [template, setTemplate] = useState<GetSavingsAccountsTemplateResponse>()
 
+  const location = useLocation()
+  const isGroup = location.pathname.includes(`/groups/${id}/savings-accounts/`)
+
   // fetch initial data
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const response = await savingsAccountApi.template14(Number(id))
+        const response = await savingsAccountApi.template14(
+          isGroup ? undefined : Number(id),
+          isGroup ? Number(id) : undefined
+        )
         setTemplate(response.data)
       } catch (err) {
         console.log('Failed to fetch initial data: ', err)
       }
     }
     fetchInitialData()
-  }, [id])
+  }, [id, isGroup])
 
   const handleSubmit = async () => {
     try {
       await savingsAccountApi.submitApplication2(formData)
-      navigate(`/clients/${id}/general`)
+      navigate(isGroup ? `/groups/${id}/general` : `/clients/${id}/general`)
     } catch (error) {
       console.error('Error while submitting', error)
     }
@@ -51,7 +57,7 @@ const CreateSavingsAccount = () => {
   const [formData, setFormData] = useState<PostSavingsAccountsRequest>({
     locale: 'en',
     dateFormat: 'dd MMMM yyyy',
-    clientId: Number(id),
+    ...(isGroup ? { groupId: Number(id) } : { clientId: Number(id) }),
     submittedOnDate: new Date().toLocaleDateString('en-GB', {
       day: '2-digit',
       month: 'long',
@@ -90,8 +96,16 @@ const CreateSavingsAccount = () => {
         <AppBreadCrumbs
           items={[
             { label: 'Home', href: '/home' },
-            { label: 'Clients', href: '/clients' },
-            { label: 'Client', href: `/clients/${id}/general` },
+            {
+              label: isGroup ? 'Groups' : 'Clients',
+              href: isGroup ? '/groups' : '/clients',
+            },
+            {
+              label: isGroup ? 'Group' : 'Client',
+              href: isGroup
+                ? `/groups/${id}/general`
+                : `/clients/${id}/general`,
+            },
             { label: 'Create Savings Account', current: true },
           ]}
         />
@@ -104,7 +118,11 @@ const CreateSavingsAccount = () => {
           prefix="Savings Account"
           steps={steps}
           onSubmit={handleSubmit}
-          onCancel={() => navigate(`/clients/${id}/general`)}
+          onCancel={() =>
+            navigate(
+              isGroup ? `/groups/${id}/general` : `/clients/${id}/general`
+            )
+          }
         />
       </div>
     </div>

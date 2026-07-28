@@ -949,6 +949,11 @@ const AppRoutes = () => {
 
           {/* Groups */}
 
+          <Route
+            path="/groups/:id/savings-accounts/create"
+            element={<CreateSavingsAccount />}
+          />
+
           <Route path="/groups/:id" element={<GroupsView />}>
             <Route path="general" element={<GroupsGeneralTab />} />
             <Route path="notes" element={<GroupsNotesTab />} />
