@@ -130,8 +130,7 @@ const ClientsView = () => {
                     },
                     {
                       label: t('view.menu.newShareAccount'),
-                      path: 'signature',
-                      disabled: true,
+                      path: `clients/${id}/shares-accounts/create`,
                     },
                     {
                       label: t('view.menu.newRecurringDepositAccount'),

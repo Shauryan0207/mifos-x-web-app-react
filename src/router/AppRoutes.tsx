@@ -232,6 +232,7 @@ import EditAccountNumberPreferences from '@/pages/system/account-number-preferen
 import CreateClients from '@/pages/clients/create-clients/CreateClients'
 import EditClients from '@/pages/clients/edit-clients/EditClients'
 import CreateSavingsAccount from '@/pages/savings/CreateSavingsAccount'
+import CreateSharesAccount from '@/pages/shares/create-shares-account/CreateSharesAccount'
 
 const AppRoutes = () => {
   return (
@@ -901,6 +902,10 @@ const AppRoutes = () => {
             element={<SavingsAccountTransactions />}
           />
 
+          <Route
+            path="/clients/:id/shares-accounts/create"
+            element={<CreateSharesAccount />}
+          />
           <Route
             path="/clients/:clientId/shares-accounts/:sharesAccountId"
             element={<SharesAccountView />}
