@@ -48,10 +48,26 @@ const SavingsAccountDetailsStep = ({
               <Label>Submitted On*</Label>
               <Input
                 type="date"
-                value={formData.submittedOnDate ?? ''}
-                onChange={e =>
-                  onChange({ ...formData, submittedOnDate: e.target.value })
+                value={
+                  formData.submittedOnDate
+                    ? new Date(formData.submittedOnDate)
+                        .toISOString()
+                        .split('T')[0]
+                    : ''
                 }
+                onChange={e => {
+                  const val = e.target.value
+                  onChange({
+                    ...formData,
+                    submittedOnDate: val
+                      ? new Date(val).toLocaleDateString('en-GB', {
+                          day: '2-digit',
+                          month: 'long',
+                          year: 'numeric',
+                        })
+                      : '',
+                  })
+                }}
               />
             </div>
             <div className="flex-1 space-y-2">
