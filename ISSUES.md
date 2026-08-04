@@ -222,6 +222,12 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 
 - `GetCentersCenterIdResponse` missing `staff` data
 
+### `/centers/{id}` (PUT)
+
+- `PutCentersCenterIdRequest` incomplete `staffId`, `externalId` missing from both
+  - `name`
+- `PutGroupsGroupIdRequest` (the endpoint the Angular web-app actually PUTs to for center edits, `/v1/groups/{id}`, not `/v1/centers/{id}`) incomplete `staffId`, `externalId` missing from both
+
 ---
 
 ## Institution Groups
