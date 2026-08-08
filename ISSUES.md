@@ -283,3 +283,13 @@ This document tracks missing or incorrect fields in the OpenAPI-generated interf
 ### `/accounts/share/template`
 
 - `GetAccountsTypeTemplateResponse` missing `chargeOptions`, `minimumActivePeriodFrequencyTypeOptions``lockinPeriodFrequencyTypeOptions`, `currencyOptions`
+
+---
+
+### `/accountingrules` (POST) / `/accountingrules/{id}` (PUT)
+
+- `AccountRuleRequest` missing `debitTags`, `creditTags`, `allowMultipleDebitEntries`, `allowMultipleCreditEntries`
+
+### `/accountingrules/{id}` (GET)
+
+- `AccountingRuleData` missing `accountToDebit`,`accountToCredit`
