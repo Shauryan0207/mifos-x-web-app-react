@@ -85,7 +85,7 @@ const AccountingRules = () => {
       <div className="flex justify-between items-center mb-6">
         <Button
           className="bg-[#1074b9] hover:bg-[#1074c9] px-6 py-3 text-base text-white"
-          onClick={() => navigate('/accounting/accountingrules/create')}
+          onClick={() => navigate('/accounting/accounting-rules/create')}
         >
           <Plus className="mr-2" /> Add Rule
         </Button>

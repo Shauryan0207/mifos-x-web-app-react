@@ -233,6 +233,8 @@ import CreateClients from '@/pages/clients/create-clients/CreateClients'
 import EditClients from '@/pages/clients/edit-clients/EditClients'
 import CreateSavingsAccount from '@/pages/savings/CreateSavingsAccount'
 import CreateSharesAccount from '@/pages/shares/create-shares-account/CreateSharesAccount'
+import CreateAccountingRule from '@/pages/accounting/accounting-rules/CreateAccountingRules'
+import EditAccountingRules from '@/pages/accounting/accounting-rules/EditAccountingRules'
 
 const AppRoutes = () => {
   return (
@@ -289,8 +291,16 @@ const AppRoutes = () => {
             element={<AccountingRules />}
           />
           <Route
+            path="/accounting/accounting-rules/create"
+            element={<CreateAccountingRule />}
+          />
+          <Route
             path="/accounting/accounting-rules/view/:id"
             element={<ViewAccountingRules />}
+          />
+          <Route
+            path="/accounting/accounting-rules/view/:id/edit"
+            element={<EditAccountingRules />}
           />
 
           {/* Closing Entries */}
