@@ -7,6 +7,7 @@
  */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { loginFineract } from '@/pages/login/loginApi'
+import { clearOidcToken, hasSession } from '@/lib/http-client'
 
 interface AuthState {
   loading: boolean
@@ -19,7 +20,7 @@ const initialState: AuthState = {
   loading: false,
   user: null,
   error: null,
-  isAuthenticated: localStorage.getItem('mifosToken') ? true : false,
+  isAuthenticated: hasSession(),
 }
 
 export const loginUser = createAsyncThunk(
@@ -49,6 +50,7 @@ const authSlice = createSlice({
       state.user = null
       state.isAuthenticated = false
       localStorage.removeItem('mifosToken')
+      clearOidcToken()
     },
   },
   extraReducers: builder => {

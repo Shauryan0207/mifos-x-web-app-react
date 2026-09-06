@@ -35,13 +35,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation, Trans } from 'react-i18next'
 import { LanguageSwitcher } from '@/components/custom/language-switcher/LanguageSwitcher'
 import { envConfig } from '@/lib/env-config'
+import { isOidcUsable } from '@/lib/oidc-config'
+import OidcLoginButton from '@/pages/login/OidcLoginButton'
 
 const Login = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  // Set by the OIDC callback route when the code exchange fails.
+  const oidcError = (location.state as { oidcError?: boolean } | null)
+    ?.oidcError
   const { t } = useTranslation(['auth', 'common'])
   const { user } = useSelector((state: RootState) => state.auth)
 
@@ -260,6 +266,12 @@ const Login = () => {
               {loading ? t('auth:login.submitting') : t('auth:login.submit')}
             </Button>
           </form>
+
+          {isOidcUsable() && (
+            <div className="w-full max-w-xs flex flex-col items-center">
+              <OidcLoginButton callbackFailed={oidcError} />
+            </div>
+          )}
 
           <Button variant="ghost" className="m-6 text-base cursor-pointer">
             {t('auth:login.forgotPassword')}

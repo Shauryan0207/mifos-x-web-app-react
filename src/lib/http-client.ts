@@ -9,14 +9,45 @@
 import { envConfig } from './env-config'
 
 const TOKEN_KEY = 'mifosToken'
+/**
+ * Access token from the OIDC flow. Stored alongside mifosToken in
+ * localStorage so the session survives a reload, matching how oidc-client-ts
+ * persists the User object.
+ */
+const OIDC_TOKEN_KEY = 'mifosOidcAccessToken'
 
 export const getAuthToken = (): string | null => {
   return localStorage.getItem(TOKEN_KEY)
 }
 
+export const getOidcToken = (): string | null => {
+  return localStorage.getItem(OIDC_TOKEN_KEY)
+}
+
+export const setOidcToken = (token: string): void => {
+  localStorage.setItem(OIDC_TOKEN_KEY, token)
+}
+
+export const clearOidcToken = (): void => {
+  localStorage.removeItem(OIDC_TOKEN_KEY)
+}
+
+/** True when either sign-in flow has produced a credential for Fineract. */
+export const hasSession = (): boolean => {
+  return !!(getOidcToken() || getAuthToken())
+}
+
 export const getAuthHeaders = (): Record<string, string> => {
   const headers: Record<string, string> = {
     'Fineract-Platform-TenantId': envConfig.tenantId,
+  }
+
+  // An OIDC session wins over a stale Basic token, so requests are never
+  // made under a previous user's Fineract identity.
+  const oidcToken = getOidcToken()
+  if (oidcToken) {
+    headers.Authorization = `Bearer ${oidcToken}`
+    return headers
   }
 
   const token = getAuthToken()
